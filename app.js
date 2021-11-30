@@ -30,6 +30,4 @@ app.use('/worker', workerRouter);
 app.use('/main', mainRouter);
 
 app.listen(3000);
-
-console.log('test');
 //test
