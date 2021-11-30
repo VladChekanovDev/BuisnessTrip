@@ -3,5 +3,7 @@ export const getBackSlash = (req, res, next) => {
 };
 
 export const getMain = (req, res, next) => {
-    res.render('main/main');
+    res.render('main/main', {
+        pageTitle: 'Main page'
+    });
 }
