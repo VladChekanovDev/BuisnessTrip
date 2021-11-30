@@ -11,4 +11,4 @@ const Admin = sequelize.define('admin', {
     }
 });
 
-export default User;
+export default Admin;

@@ -15,4 +15,4 @@ const Department = sequelize.define('department', {
     }
 });
 
-export default User;
+export default Department;

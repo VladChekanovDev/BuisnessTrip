@@ -6,6 +6,16 @@ import adminRouter from './routes/adminRouter.js';
 import workerRouter from './routes/workerRouter.js';
 import mainRouter from './routes/mainRouter.js';
 
+//database
+import sequelize from './helpers/database.js';
+
+//models
+import User from './models/User.js';
+import Admin from './models/Admin.js';
+import Chief from './models/Chief.js';
+import Department from './models/Department.js';
+import Worker from './models/Worker.js';
+
 import * as mainController from './controllers/mainController.js';
 
 const app = express();
@@ -28,6 +38,23 @@ app.get('/', mainController.getBackSlash);
 app.use('/admin', adminRouter);
 app.use('/worker', workerRouter);
 app.use('/main', mainRouter);
+
+//assoсiations
+Worker.belongsTo(User);
+Admin.belongsTo(User);
+Chief.belongsTo(User);
+User.hasOne(Worker);
+User.hasOne(Admin);
+User.hasOne(Chief);
+Chief.belongsTo(Department);
+Worker.BelongsTo(Department);
+Department.hasOne(Chief);
+Department.hasOne(Worker);
+
+sequelize
+    .sync()
+    .then()
+    .catch(err => console.log(err));
 
 app.listen(3000);
 //test
