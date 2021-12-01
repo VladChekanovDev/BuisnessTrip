@@ -20,4 +20,15 @@ const User = sequelize.define('user', {
     }
 });
 
+User.authorizate = async(login, password) => {
+    const users = await User.findAll({
+        where: {
+            login: login
+        }
+    });
+    if (!users[0]) return;
+    if (users[0].password == password) return users[0];
+    return;
+};
+
 export default User;

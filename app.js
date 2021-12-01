@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import adminRouter from './routes/adminRouter.js';
 import workerRouter from './routes/workerRouter.js';
 import mainRouter from './routes/mainRouter.js';
+import errorRouter from './routes/errorRouter.js';
 
 //database
 import sequelize from './helpers/database.js';
@@ -38,6 +39,11 @@ app.get('/', mainController.getBackSlash);
 app.use('/admin', adminRouter);
 app.use('/worker', workerRouter);
 app.use('/main', mainRouter);
+app.use('/error', errorRouter);
+
+app.use((req, res, next) => {
+    res.redirect('/error/404');
+});
 
 //assoсiations
 Worker.belongsTo(User);
@@ -47,14 +53,21 @@ User.hasOne(Worker);
 User.hasOne(Admin);
 User.hasOne(Chief);
 Chief.belongsTo(Department);
-Worker.BelongsTo(Department);
+Worker.belongsTo(Department);
 Department.hasOne(Chief);
 Department.hasOne(Worker);
 
 sequelize
-    .sync()
-    .then()
-    .catch(err => console.log(err));
+    .sync({force: true})
+    .then(() => {
+        User.create({
+            login: 'admin',
+            password: 'admin'
+        })
+            .then(() => {
+                app.listen(3000);
 
-app.listen(3000);
+            });
+    })
+    .catch(err => console.log(err));
 //test

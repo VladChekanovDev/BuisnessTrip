@@ -1,3 +1,9 @@
 <%- include('../includes/head.ejs'); %>
-    Hello
+    <form action="/main/auth-user" method="post">
+        <label for="login">Логин:</label>
+        <input type="login" name="login" id="login" required><br>
+        <label for="password">Пароль:</label>
+        <input type="password" name="password" id="password" required><br>
+        <button type="submit">Войти</button>
+    </form>
 <%- include('../includes/end.ejs'); %>
