@@ -26,7 +26,12 @@ const Worker = sequelize.define('worker', {
         type: Sequelize.DATEONLY,
         allowNull: false
     },
-    dateOfDismissal: Sequelize.DATEONLY
+    dateOfDismissal: Sequelize.DATEONLY,
+    position: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    imageURL: Sequelize.STRING
 });
 
 export default Worker;
