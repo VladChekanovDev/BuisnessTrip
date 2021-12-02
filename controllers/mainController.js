@@ -8,7 +8,7 @@ export const getMain = (req, res, next) => {
     const userNotFound = req.query.userNotFound;
     console.log(userNotFound);
     res.render('main/main', {
-        pageTitle: 'Main page',
+        pageTitle: 'Главная страница',
         userNotFound: userNotFound
     });
 };
@@ -21,7 +21,7 @@ export const postAuthUser = async(req, res, next) => {
     if (user) {
         return res.redirect(`/${user.userType}/${user.id}`);
     }
-    return res.redirect(`/main?userNotFound=true`);
+    res.redirect(`/main?userNotFound=true`);
 }
 
 export const postAddChief = (req, res, next) => {
