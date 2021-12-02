@@ -1,0 +1,29 @@
+<%- include('../includes/head.ejs') %>
+<main>
+    <form action="/chief/workers/add-worker" method="post">
+        <label for="lastName">Фамилия*:</label>
+        <input type="text" name="lastName" id="lastName" required><br>
+        <label for="firstName">Имя*:</label>
+        <input type="text" name="firstName" id="lastName" required><br>
+        <label for="patronymic">Отчество:</label>
+        <input type="text" name="patronymic" id="patronymic"><br>
+        <label for="dateOfBirth">Дата рождения*:</label>
+        <input type="date" name="dateOfBirth" id="dateOfBirth" required><br>
+        <label for="dateOfHiring">Дата найма*:</label>
+        <input type="date" name="dateOfHiring" id="dateOfHiring" required><br>
+        <label for="login">Логин*:</label>
+        <input type="login" name="login" id="login" required><br>
+        <label for="password">Пароль*:</label>
+        <input type="password" name="password" id="password" required><br>
+        <label for="position">Должность*:</label>
+        <input type="text" name="position" id="position"><br>
+        <label for="salary">Зарплата*:</label>
+        <input type="number" name="salary" id="salary" step="1" required><br>
+        <label for="imageURL">URL картинки:</label>
+        <input type="text" name="imageURL" id="imageURL"><br>
+        <input type="hidden" name="userId" value="<%= userId %>">
+        <button type="submit">Зарегистрировать рабочего</button>
+    </form>
+    <a href="/chief/<%= userId %>/workers">Назад</a>
+</main>
+<%- include('../includes/end.ejs') %>
