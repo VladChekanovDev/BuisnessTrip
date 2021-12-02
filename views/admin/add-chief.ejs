@@ -1,0 +1,19 @@
+<%- include('../includes/head.ejs') %>
+<main>
+    <form action="/admin/chiefs/add-chief" method="post">
+        <label for="firstName">Имя*:</label>
+        <input type="text" name="firstName" id="firstName" required><br>
+        <label for="lastName">Фамилия*:</label>
+        <input type="text" name="lastName" id="lastName" required><br>
+        <label for="patronymic">Отчество:</label>
+        <input type="text" name="patronymic" id="login" required><br>
+        <label for="login">Логин*:</label>
+        <input type="login" name="login" id="login" required><br>
+        <label for="password">Пароль*:</label>
+        <input type="password" name="password" id="password" required><br>
+        <label for="repeat-password">Повторите пароль*:</label>
+        <input type="password" name="repeatPassword" id="repeat-password" required><br>
+        <button type="submit">Зарегистрировать</button>
+    </form>
+</main>
+<% include('../includes/end.ejs') %>

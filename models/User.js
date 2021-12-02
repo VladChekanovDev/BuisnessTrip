@@ -2,6 +2,8 @@ import Sequelize from 'sequelize';
 
 import sequelize from '../helpers/database.js';
 
+import Chief from '../models/Chief.js';
+
 const User = sequelize.define('user', {
     id: {
         type: Sequelize.INTEGER,
@@ -24,6 +26,12 @@ const User = sequelize.define('user', {
     }
 });
 
+/**
+ * Authorizates user
+ * @param {*} login Login
+ * @param {*} password Password
+ * @returns User's instance or nothing
+ */
 User.authorizate = async(login, password) => {
     const users = await User.findAll({
         where: {
@@ -34,5 +42,16 @@ User.authorizate = async(login, password) => {
     if (users[0].password == password) return users[0];
     return;
 };
+
+/**
+ * Registrates chief
+ * @param {*} chiefObject Объект начальника
+ * @param {*} userObject Объект пользователя
+ */
+User.registrateChief = async(userObject, chiefObject) => {
+    const user = await User.create(userObject);
+    const chief = await Chief.create(chiefObject);
+    user.setChief(chief);
+}
 
 export default User;
