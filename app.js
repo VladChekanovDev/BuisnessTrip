@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import md5 from 'md5';
 
 // Routers packages
 import adminRouter from './routes/adminRouter.js';
@@ -64,7 +65,7 @@ sequelize
     .then(async() => {
         const user = await User.create({
             login: 'admin',
-            password: 'admin',
+            password: md5('admin'),
             userType: 'admin'
         });
         const admin = await Admin.create();
@@ -75,7 +76,7 @@ sequelize
         });
         await User.registrateChief({
             login: 'chief',
-            password: 'chief',
+            password: md5('chief'),
             userType: 'chief'
         }, {
             firstName: 'Владислав',
@@ -84,7 +85,7 @@ sequelize
         }, department.id);
         await User.registrateWorker({
             login: 'worker',
-            password: 'worker',
+            password: md5('worker'),
             userType: 'worker'
         }, {
             lastName: 'Скобель',

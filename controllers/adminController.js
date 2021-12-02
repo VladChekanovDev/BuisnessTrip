@@ -1,3 +1,5 @@
+import md5 from "md5";
+
 import User from "../models/User.js";
 import Chief from "../models/Chief.js";
 import Department from "../models/Department.js";
@@ -69,7 +71,7 @@ export const postAddChief = async(req, res, next) => {
     const lastName = req.body.lastName;
     const patronymic = req.body.patronymic;
     const login = req.body.login;
-    const password = req.body.password;
+    const password = md5(req.body.password);
     const departmentId = req.body.departmentId;
     await User.registrateChief({
         login: login,
@@ -114,7 +116,7 @@ export const postAddWorker = async(req, res, next) => {
         const dateOfBirth = req.body.dateOfBirth;
         const dateOfHiring = req.body.dateOfHiring;
         const login = req.body.login;
-        const password = req.body.password;
+        const password = md5(req.body.password);
         const departmentId = req.body.departmentId;
         const position = req.body.position;
         const imageURL = req.body.imageURL;
