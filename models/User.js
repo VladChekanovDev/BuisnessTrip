@@ -48,9 +48,10 @@ User.authorizate = async(login, password) => {
  * @param {*} chiefObject Объект начальника
  * @param {*} userObject Объект пользователя
  */
-User.registrateChief = async(userObject, chiefObject) => {
+User.registrateChief = async(userObject, chiefObject, departmentId) => {
     const user = await User.create(userObject);
     const chief = await Chief.create(chiefObject);
+    chief.deparmentId = departmentId;
     user.setChief(chief);
 }
 

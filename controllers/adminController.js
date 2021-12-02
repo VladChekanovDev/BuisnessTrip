@@ -34,15 +34,18 @@ export const postAddDepartment = async(req, res, next) => {
 
 export const getChiefs = async(req, res, next) => {
     const chiefs = await Chief.findAll();
+    console.log(chiefs);
     res.render('admin/chiefs', {
         pageTitle: 'Начальники отделов',
         chiefs: chiefs
     });
 };
 
-export const getAddChief = (req, res, next) => {
+export const getAddChief = async(req, res, next) => {
+    const departments = await Department.findAll();
     res.render('admin/add-chief', {
-        pageTitle: 'Добавление начальника отдела'
+        pageTitle: 'Добавление начальника отдела',
+        departments: departments
     });
 };
 

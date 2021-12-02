@@ -1,9 +1,10 @@
 <%- include('../includes/head.ejs') %>
     <a href="/admin/chiefs/add-chief">Добавить главу отдела</a><br>
     <% for (let chief of chiefs) {%>
+        <%= chief.lastName %>br
         <%= chief.firstName %>
-        <%= chief.lastName %>
         <%= chief.patronymic ? chief.patronymic : '' %>
+        <%= chief.getDepartment().name %>
         <hr>
     <% }; %>
 <%- include('../includes/end.ejs') %>

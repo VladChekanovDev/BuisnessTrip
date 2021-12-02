@@ -13,6 +13,12 @@
         <input type="password" name="password" id="password" required><br>
         <label for="repeat-password">Повторите пароль*:</label>
         <input type="password" name="repeatPassword" id="repeat-password" required><br>
+        <label for="department">Отдел*:</label>
+        <select name="departmentId" id="department">
+            <% for (let department of departments) {%>
+                <option value="<%= department.id %>"><%= department.name %></option>
+            <% }; %>
+        </select><br>
         <button type="submit">Зарегистрировать</button>
     </form>
 </main>
