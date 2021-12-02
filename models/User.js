@@ -4,6 +4,7 @@ import sequelize from '../helpers/database.js';
 
 import Chief from '../models/Chief.js';
 import Department from './Department.js';
+import Worker from './Worker.js';
 
 const User = sequelize.define('user', {
     id: {
@@ -45,6 +46,7 @@ User.authorizate = async(login, password) => {
 };
 
 /**
+ * 
  * Registrates chief
  * @param {*} chiefObject Объект начальника
  * @param {*} userObject Объект пользователя
@@ -56,6 +58,20 @@ User.registrateChief = async(userObject, chiefObject, departmentId) => {
     const department = await Department.findByPk(departmentId);
     department.setChief(chief);
     user.setChief(chief);
+}
+
+/**
+ * Registares worker
+ * @param {*} userObject User's object 
+ * @param {*} workerObject Worker's object 
+ * @param {*} departmentId Department's id
+ */
+User.registrateWorker = async(userObject, workerObject, departmentId) => {
+    const user = await User.create(userObject);
+    const worker = await Worker.create(workerObject);
+    const department = await Department.findByPk(departmentId);
+    await department.setWorker(worker);
+    await user.setWorker(worker);
 }
 
 export default User;

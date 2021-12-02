@@ -1,0 +1,13 @@
+<%- include('../includes/head.ejs') %>
+<main>
+    <a href="/admin/workers/add-worker">Добавить рабочего</a>
+    <h1>Рабочие:</h1>
+    <% for (let worker of workers) {%>
+        <%= worker.lastName %> <br>
+        <%= worker.firstName %> <br>
+        <%= worker.patronymic ? worker.patronymic : '' %><br>
+        <%= worker.department.name %>
+        <hr>
+    <% }; %>
+</main>
+<%- include('../includes/end.ejs') %>

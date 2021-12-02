@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import Chief from "../models/Chief.js";
 import Department from "../models/Department.js";
+import Worker from "../models/Worker.js";
 
 export const getAdmin = (req, res, next) => {
     res.render('admin/admin', {
@@ -67,5 +68,47 @@ export const postAddChief = async(req, res, next) => {
         lastName: lastName,
         patronymic: patronymic
     }, departmentId);
-    res.redirect(`/admin/add-chief`);
+    res.redirect(`/admin/add-chief`);   
+};
+
+export const getWorkers = async(req, res, next) => {
+    const workers = await Worker.findAll();
+    for (let worker of workers) {
+        worker.department = await worker.getDepartment();
+    }
+    res.render('admin/workers', {
+        pageTitle: 'Работники',
+        workers: workers
+    });
+};
+
+export const getAddWorker = async(req, res, next) => {
+    const departments = await Department.findAll();
+    res.render('admin/add-worker', {
+        pageTitle: 'Добавление работника',
+        departments: departments
+    });
+};
+
+export const postAddWorker = async(req, res, next) => {
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const patronymic = req.body.patronymic;
+    const dateOfBirth = req.body.dateOfBirth;
+    const dateOfHiring = req.body.dateOfHiring;
+    const login = req.body.login;
+    const password = req.body.password;
+    const departmentId = req.body.departmentId;
+    await User.registrateWorker({
+        login: login,
+        password: password,
+        userType: 'worker'
+    },{
+        firstName: firstName,
+        lastName: lastName,
+        patronymic: patronymic,
+        dateOfBirth: dateOfBirth,
+        dateOfHiring: dateOfHiring
+    }, departmentId);
+    res.redirect('/admin/workers');
 };

@@ -3,7 +3,7 @@
     <% for (let chief of chiefs) {%>
         <%= chief.lastName %> <br>
         <%= chief.firstName %> <br>
-        <%= chief.patronymic ? chief.patronymic : '' %>
+        <%= chief.patronymic ? chief.patronymic : '' %><br>
         <%= chief.department.name %>
         <hr>
     <% }; %>

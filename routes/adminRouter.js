@@ -16,6 +16,12 @@ adminRouter.get('/chiefs/add-chief', adminController.getAddChief);
 
 adminRouter.post('/chiefs/add-chief', adminController.postAddChief);
 
+adminRouter.get('/workers', adminController.getWorkers);
+
+adminRouter.get('/workers/add-worker', adminController.getAddWorker);
+
+adminRouter.post('/workers/add-worker', adminController.postAddWorker);
+
 adminRouter.get('/:adminId', adminController.getAdmin);
 
 export default adminRouter;

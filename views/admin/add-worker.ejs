@@ -1,0 +1,27 @@
+<%- include('../includes/head.ejs') %>
+<main>
+    <form action="/admin/workers/add-worker" method="post">
+        <label for="lastName">Фамилия*:</label>
+        <input type="text" name="lastName" id="lastName" required><br>
+        <label for="firstName">Имя*:</label>
+        <input type="text" name="firstName" id="lastName" required><br>
+        <label for="patronymic">Отчество:</label>
+        <input type="text" name="patronymic" id="patronymic"><br>
+        <label for="dateOfBirth">Дата рождения*:</label>
+        <input type="date" name="dateOfBirth" id="dateOfBirth" required><br>
+        <label for="dateOfHiring">Дата найма*:</label>
+        <input type="date" name="dateOfHiring" id="dateOfHiring" required><br>
+        <label for="login">Логин*:</label>
+        <input type="login" name="login" id="login" required><br>
+        <label for="password">Пароль*:</label>
+        <input type="password" name="password" id="password" required><br>
+        <label for="departmentId">Отдел*:</label>
+        <select name="departmentId" id="departmentId">
+            <% for (let department of departments) {%>
+                <option value="<%= department.id %>"><%= department.name %></option>
+            <% }; %>
+        </select><br>
+        <button type="submit">Зарегистрировать рабочего</button>
+    </form>
+</main>
+<%- include('../includes/end.ejs') %>
