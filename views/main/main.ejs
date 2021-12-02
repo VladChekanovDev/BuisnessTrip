@@ -4,6 +4,9 @@
         <input type="login" name="login" id="login" required><br>
         <label for="password">Пароль:</label>
         <input type="password" name="password" id="password" required><br>
+        <% if (userNotFound) {%>
+            <h2>Неверный логин или пароль</h2>
+        <% } %>
         <button type="submit">Войти</button>
     </form>
 <%- include('../includes/end.ejs'); %>

@@ -5,8 +5,11 @@ export const getBackSlash = (req, res, next) => {
 };
 
 export const getMain = (req, res, next) => {
+    const userNotFound = req.query.userNotFound;
+    console.log(userNotFound);
     res.render('main/main', {
-        pageTitle: 'Main page'
+        pageTitle: 'Main page',
+        userNotFound: userNotFound
     });
 };
 
@@ -16,12 +19,11 @@ export const postAuthUser = async(req, res, next) => {
     const user = await User.authorizate(login, password);
     console.log(user);
     if (user) {
-        return res.redirect(`/main?userId=${user.id}`);
+        return res.redirect(`/${user.userType}/${user.id}`);
     }
-    throw new Error();
-    return res.redirect(`/main`);
+    return res.redirect(`/main?userNotFound=true`);
 }
 
-export const postAdd = (req, res, next) => {
+export const postAddChief = (req, res, next) => {
     
 };

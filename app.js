@@ -62,11 +62,15 @@ sequelize
     .then(() => {
         User.create({
             login: 'admin',
-            password: 'admin'
+            password: 'admin',
+            userType: 'admin'
         })
-            .then(() => {
-                app.listen(3000);
-
+            .then(user => {
+                Admin.create()
+                    .then(admin => user.setAdmin(admin))
+                    .then(() => {
+                        app.listen(3000);
+                    })
             });
     })
     .catch(err => console.log(err));
