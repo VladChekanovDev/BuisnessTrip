@@ -12,6 +12,10 @@ const Department = sequelize.define('department', {
     name: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    adress: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 });
 

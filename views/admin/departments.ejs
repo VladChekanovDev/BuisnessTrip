@@ -1,0 +1,11 @@
+<%- include('../includes/head.ejs') %>
+<main>
+    <a href="/admin/departments/add-department">Добавить отдел</a><br>
+    Отделы: <br>
+    <% for (let department of departments) {%>
+        <%= department.name %> <br>
+        <%= department.adress %> <br>
+        <hr>
+    <% } %>
+</main>
+<%- include('../includes/end.ejs') %>
