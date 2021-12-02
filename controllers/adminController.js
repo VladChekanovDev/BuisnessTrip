@@ -91,24 +91,29 @@ export const getAddWorker = async(req, res, next) => {
 };
 
 export const postAddWorker = async(req, res, next) => {
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const patronymic = req.body.patronymic;
-    const dateOfBirth = req.body.dateOfBirth;
-    const dateOfHiring = req.body.dateOfHiring;
-    const login = req.body.login;
-    const password = req.body.password;
-    const departmentId = req.body.departmentId;
-    await User.registrateWorker({
-        login: login,
-        password: password,
-        userType: 'worker'
-    },{
-        firstName: firstName,
-        lastName: lastName,
-        patronymic: patronymic,
-        dateOfBirth: dateOfBirth,
-        dateOfHiring: dateOfHiring
-    }, departmentId);
-    res.redirect('/admin/workers');
+    try {
+        const firstName = req.body.firstName;
+        const lastName = req.body.lastName;
+        const patronymic = req.body.patronymic;
+        const dateOfBirth = req.body.dateOfBirth;
+        const dateOfHiring = req.body.dateOfHiring;
+        const login = req.body.login;
+        const password = req.body.password;
+        const departmentId = req.body.departmentId;
+        await User.registrateWorker({
+            login: login,
+            password: password,
+            userType: 'worker'
+        },{
+            firstName: firstName,
+            lastName: lastName,
+            patronymic: patronymic,
+            dateOfBirth: dateOfBirth,
+            dateOfHiring: dateOfHiring
+        }, departmentId);
+        res.redirect('/admin/workers');
+    } catch(e) {
+        console.log(e);
+        res.redirect('/error/500');
+    }
 };
