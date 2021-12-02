@@ -3,6 +3,7 @@ import Sequelize from 'sequelize';
 import sequelize from '../helpers/database.js';
 
 import Chief from '../models/Chief.js';
+import Department from './Department.js';
 
 const User = sequelize.define('user', {
     id: {
@@ -47,11 +48,13 @@ User.authorizate = async(login, password) => {
  * Registrates chief
  * @param {*} chiefObject Объект начальника
  * @param {*} userObject Объект пользователя
+ * @param {*} departmentId Department's id
  */
 User.registrateChief = async(userObject, chiefObject, departmentId) => {
     const user = await User.create(userObject);
     const chief = await Chief.create(chiefObject);
-    chief.deparmentId = departmentId;
+    const department = await Department.findByPk(departmentId);
+    department.setChief(chief);
     user.setChief(chief);
 }
 

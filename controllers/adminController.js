@@ -34,7 +34,9 @@ export const postAddDepartment = async(req, res, next) => {
 
 export const getChiefs = async(req, res, next) => {
     const chiefs = await Chief.findAll();
-    console.log(chiefs);
+    for (let chief of chiefs) {
+        chief.department = await chief.getDepartment();
+    }
     res.render('admin/chiefs', {
         pageTitle: 'Начальники отделов',
         chiefs: chiefs
@@ -55,14 +57,15 @@ export const postAddChief = async(req, res, next) => {
     const patronymic = req.body.patronymic;
     const login = req.body.login;
     const password = req.body.password;
+    const departmentId = req.body.departmentId;
     await User.registrateChief({
         login: login,
         password: password,
-        userType: 'chief'
+        userType: 'chief',
     }, {
         firstName: firstName,
         lastName: lastName,
         patronymic: patronymic
-    });
+    }, departmentId);
     res.redirect(`/admin/add-chief`);
 };
