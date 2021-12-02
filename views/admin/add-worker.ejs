@@ -27,7 +27,9 @@
         <input type="number" name="salary" id="salary" step="1" required><br>
         <label for="imageURL">URL картинки:</label>
         <input type="text" name="imageURL" id="imageURL"><br>
+        <input type="hidden" name="userId" value="<%= userId %>">
         <button type="submit">Зарегистрировать рабочего</button>
     </form>
+    <a href="/admin/<%= userId %>/workers">Назад</a>
 </main>
 <%- include('../includes/end.ejs') %>

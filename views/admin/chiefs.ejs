@@ -1,5 +1,5 @@
 <%- include('../includes/head.ejs') %>
-    <a href="/admin/chiefs/add-chief">Добавить главу отдела</a><br>
+    <a href="/admin/<%= userId %>/chiefs/add-chief">Добавить главу отдела</a><br>
     <% for (let chief of chiefs) {%>
         <%= chief.lastName %> <br>
         <%= chief.firstName %> <br>
@@ -7,4 +7,5 @@
         <%= chief.department.name %>
         <hr>
     <% }; %>
+    <a href="/admin/<%= userId %>">На панель</a>
 <%- include('../includes/end.ejs') %>

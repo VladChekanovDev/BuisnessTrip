@@ -19,7 +19,9 @@
                 <option value="<%= department.id %>"><%= department.name %></option>
             <% }; %>
         </select><br>
+        <input type="hidden" name="userId" value="<%= userId %>">
         <button type="submit">Зарегистрировать</button>
     </form>
+    <a href="/admin/<%= userId %>/chiefs">Назад</a>
 </main>
 <% include('../includes/end.ejs') %>

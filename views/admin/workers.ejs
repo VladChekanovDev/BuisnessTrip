@@ -1,6 +1,6 @@
 <%- include('../includes/head.ejs') %>
 <main>
-    <a href="/admin/workers/add-worker">Добавить рабочего</a>
+    <a href="/admin/<%= userId %>/workers/add-worker">Добавить рабочего</a>
     <h1>Рабочие:</h1>
     <% for (let worker of workers) {%>
         <%= worker.lastName %> <br>
@@ -11,5 +11,6 @@
         <img src="<%= worker.imageURL %>" alt="<%= worker.lastName %>">
         <hr>
     <% }; %>
+    <a href="/admin/<%= userId %>">На панель</a>
 </main>
 <%- include('../includes/end.ejs') %>
