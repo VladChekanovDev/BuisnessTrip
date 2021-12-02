@@ -70,7 +70,7 @@ User.registrateWorker = async(userObject, workerObject, departmentId) => {
     const user = await User.create(userObject);
     const worker = await Worker.create(workerObject);
     const department = await Department.findByPk(departmentId);
-    await department.setWorker(worker);
+    await department.addWorker(worker);
     await user.setWorker(worker);
 }
 

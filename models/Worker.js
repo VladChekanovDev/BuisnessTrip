@@ -31,7 +31,11 @@ const Worker = sequelize.define('worker', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    imageURL: Sequelize.STRING
+    imageURL: Sequelize.STRING,
+    salary: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    }
 });
 
 export default Worker;

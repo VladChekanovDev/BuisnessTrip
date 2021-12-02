@@ -6,6 +6,7 @@ import adminRouter from './routes/adminRouter.js';
 import workerRouter from './routes/workerRouter.js';
 import mainRouter from './routes/mainRouter.js';
 import errorRouter from './routes/errorRouter.js';
+import chiefRouter from './routes/chiefRouter.js';
 
 //database
 import sequelize from './helpers/database.js';
@@ -40,6 +41,7 @@ app.use('/admin', adminRouter);
 app.use('/worker', workerRouter);
 app.use('/main', mainRouter);
 app.use('/error', errorRouter);
+app.use('/chief', chiefRouter);
 
 app.use((req, res, next) => {
     res.redirect('/error/404');
@@ -55,23 +57,46 @@ User.hasOne(Chief);
 Chief.belongsTo(Department);
 Worker.belongsTo(Department);
 Department.hasOne(Chief);
-Department.hasOne(Worker);
+Department.hasMany(Worker);
 
 sequelize
     .sync({force: true})
-    .then(() => {
-        User.create({
+    .then(async() => {
+        const user = await User.create({
             login: 'admin',
             password: 'admin',
             userType: 'admin'
-        })
-            .then(user => {
-                Admin.create()
-                    .then(admin => user.setAdmin(admin))
-                    .then(() => {
-                        app.listen(3000);
-                    })
-            });
+        });
+        const admin = await Admin.create();
+        await user.setAdmin(admin);
+        const department = await Department.create({
+            name: 'Отдел автоматизации и информатизации',
+            adress: 'г. Гродно, ГГПК'
+        });
+        await User.registrateChief({
+            login: 'chief',
+            password: 'chief',
+            userType: 'chief'
+        }, {
+            firstName: 'Владислав',
+            lastName: 'Чеканов',
+            patronymic: 'Дмитриевич',
+        }, department.id);
+        await User.registrateWorker({
+            login: 'worker',
+            password: 'worker',
+            userType: 'worker'
+        }, {
+            lastName: 'Скобель',
+            firstName: 'Никита',
+            patronymic: 'Сергеевич',
+            dateOfBirth: '2002-09-26',
+            dateOfHiring: '2021-09-26',
+            salary: '1',
+            imageURL: 'https://sun9-84.userapi.com/impg/pgtKPg_RaQpaKd63gAxLjO4gaDIToqjoXRHypw/zCapeCdmRds.jpg?size=2560x1714&quality=96&sign=0601e7640c7f76124e55ed0a9ec1cc12&type=album',
+            position: 'Чернорабочий'
+        }, department.id);
+        app.listen(3000);
     })
     .catch(err => console.log(err));
 //test

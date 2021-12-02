@@ -1,0 +1,9 @@
+<%- include('../includes/head.ejs') %>
+<main>
+    <% for (let worker of workers) {%>
+        <%= worker.lastName %> <br>
+        <%= worker.firstName %> <br>
+        <%= worker.patronymic ? worker.patronymic : '' %> <br>
+    <% }; %>
+</main>
+<%- include('../includes/end.ejs') %>

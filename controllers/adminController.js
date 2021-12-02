@@ -102,6 +102,7 @@ export const postAddWorker = async(req, res, next) => {
         const departmentId = req.body.departmentId;
         const position = req.body.position;
         const imageURL = req.body.imageURL;
+        const salary = req.body.salary;
         await User.registrateWorker({
             login: login,
             password: password,
@@ -113,7 +114,8 @@ export const postAddWorker = async(req, res, next) => {
             dateOfBirth: dateOfBirth,
             dateOfHiring: dateOfHiring,
             position: position,
-            imageURL: imageURL
+            imageURL: imageURL,
+            salary: salary
         }, departmentId);
         res.redirect('/admin/workers');
     } catch(e) {
