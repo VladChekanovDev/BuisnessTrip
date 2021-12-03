@@ -55,10 +55,10 @@ User.authorizate = async(login, password) => {
 User.registrateChief = async(userObject, chiefObject, departmentId) => {
     const user = await User.create(userObject);
     const chief = await Chief.create(chiefObject);
+    await user.setChief(chief);
     const department = await Department.findByPk(departmentId);
-    department.setChief(chief);
-    user.setChief(chief);
-}
+    await chief.setDepartment(department);
+};
 
 /**
  * Registares worker

@@ -19,6 +19,7 @@ import Chief from './models/Chief.js';
 import Department from './models/Department.js';
 import Worker from './models/Worker.js';
 import Station from './models/Station.js';
+import BuisnessTrip from './models/BuisnessTrip.js';
 
 import * as mainController from './controllers/mainController.js';
 
@@ -60,6 +61,11 @@ Chief.belongsTo(Department);
 Worker.belongsTo(Department);
 Department.hasOne(Chief);
 Department.hasMany(Worker);
+Department.hasMany(BuisnessTrip);
+BuisnessTrip.belongsTo(Department);
+BuisnessTrip.hasOne(Station);
+Worker.hasMany(BuisnessTrip);
+BuisnessTrip.belongsTo(Worker);
 
 sequelize
     .sync({force: true})
@@ -83,6 +89,7 @@ sequelize
             firstName: 'Владислав',
             lastName: 'Чеканов',
             patronymic: 'Дмитриевич',
+            position: 'Глава отдела'
         }, department.id);
         await User.registrateWorker({
             login: 'worker',

@@ -2,26 +2,37 @@ import Sequelize from 'sequelize';
 
 import sequelize from '../helpers/database.js';
 
-const Chief = sequelize.define('chief', {
+const BuisnessTrip = sequelize.define('buisnessTrip', {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
+    }, 
+    duration: {
+        type: Sequelize.INTEGER,
+        allowNull: false
     },
-    firstName: {
+    goal: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    lastName: {
+    orderNumber: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    patronymic: Sequelize.STRING,
-    position: {
+    orderDate: {
+        type: Sequelize.DATEONLY,
+        allowNull: false
+    },
+    status: {
         type: Sequelize.STRING,
+        allowNull: false
+    },
+    cost: {
+        type: Sequelize.INTEGER,
         allowNull: false
     }
 });
 
-export default Chief;
+export default BuisnessTrip;

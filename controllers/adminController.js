@@ -107,6 +107,7 @@ export const postAddChief = async(req, res, next) => {
     const login = req.body.login;
     const password = md5(req.body.password);
     const departmentId = req.body.departmentId;
+    const position = req.body.position;
     await User.registrateChief({
         login: login,
         password: password,
@@ -114,7 +115,8 @@ export const postAddChief = async(req, res, next) => {
     }, {
         firstName: firstName,
         lastName: lastName,
-        patronymic: patronymic
+        patronymic: patronymic,
+        position: position
     }, departmentId);
     res.redirect(`/admin/${userId}/chiefs`);   
 };
