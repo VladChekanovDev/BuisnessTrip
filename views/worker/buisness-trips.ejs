@@ -16,6 +16,9 @@
             <button type="submit">Отказаться</button>
         </form>
         <% }; %>
+        <% if (buisnessTrip.status == 'Принято') {%>
+            <a href="/worker/<%= userId %>/buisness-trip/get-certificate/<%= buisnessTrip.id %>">Получить командировочное удостоверение</a>
+        <% }; %>
     <% }; %>
     <a href="/worker/<%= userId %>">Назад</a>
 </main>

@@ -1,6 +1,8 @@
 <%- include('../includes/head.ejs') %>
 <main>
     <form action="/chief/buisness-trips/edit-trip" method="post">
+        <label for="dateOfBegin">Дата начала*:</label>
+        <input type="date" name="dateOfBegin" id="dateOfBegin"><br>
         <label for="duration">Продолжительность командировки*:</label>
         <input type="number" name="duration" id="duration" min="1" step="1" value="<%= trip.duration %>" required><br>
         <label for="goal">Цель командировки*:</label>

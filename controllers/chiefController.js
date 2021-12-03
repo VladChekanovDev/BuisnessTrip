@@ -118,6 +118,7 @@ export const postAddTrip = async(req, res) => {
         const chief = await user.getChief();
         const department = await chief.getDepartment();
         const newTrip = {
+            dateOfBegin: req.body.dateOfBegin,
             duration: req.body.duration,
             goal: req.body.goal,
             orderNumber: req.body.orderNumber,
@@ -170,6 +171,7 @@ export const postEditTrip = async(req, res) => {
         const chief = await user.getChief();
         const department = await chief.getDepartment();
         const updatedTrip = {
+            dateOfBegin: req.body.dateOfBegin,
             duration: req.body.duration,
             goal: req.body.goal,
             orderNumber: req.body.orderNumber,

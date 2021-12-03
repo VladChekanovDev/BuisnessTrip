@@ -9,6 +9,10 @@ const BuisnessTrip = sequelize.define('buisnessTrip', {
         primaryKey: true,
         autoIncrement: true
     }, 
+    dateOfBegin: {
+        type: Sequelize.DATEONLY,
+        allowNull: false
+    },
     duration: {
         type: Sequelize.INTEGER,
         allowNull: false
