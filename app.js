@@ -18,6 +18,7 @@ import Admin from './models/Admin.js';
 import Chief from './models/Chief.js';
 import Department from './models/Department.js';
 import Worker from './models/Worker.js';
+import Station from './models/Station.js';
 
 import * as mainController from './controllers/mainController.js';
 

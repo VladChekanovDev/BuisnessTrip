@@ -40,6 +40,8 @@ adminRouter.get('/:userId/workers/edit-worker/:workerId', adminController.getEdi
 
 adminRouter.post('/workers/edit-worker', adminController.postEditWorker);
 
+adminRouter.post('/workers/fire-worker', adminController.postFireWorker);
+
 adminRouter.get('/:userId', adminController.getAdmin);
 
 export default adminRouter;

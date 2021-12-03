@@ -15,6 +15,11 @@
             <button type="submit">Удалить</button>
         </form>
         <a href="/admin/<%= userId %>/workers/edit-worker/<%= worker.id %>">Редактировать</a>
+        <form action="/admin/workers/fire-worker" method="post">
+            <input type="hidden" name="workerId" value="<%= worker.id %>">
+            <input type="hidden" name="userId" value="<%= userId %>">
+            <button type="submit">Уволить</button>
+        </form>
         <hr>
     <% }; %>
     <a href="/admin/<%= userId %>">На панель</a>

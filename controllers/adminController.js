@@ -256,3 +256,18 @@ export const postEditWorker = async(req, res) => {
     });
     res.redirect(`/admin/${userId}/workers`);
 };
+
+export const postFireWorker = async(req, res) => {
+    const workerId = req.body.workerId;
+    const userId = req.body.userId;
+    let today = new Date();
+    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    await Worker.update({
+        dateOfDismissal: date
+    }, {
+        where: {
+            id: workerId
+        }
+    });
+    res.redirect(`/admin/${userId}/workers`);
+};
