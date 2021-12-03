@@ -63,7 +63,8 @@ Department.hasOne(Chief);
 Department.hasMany(Worker);
 Department.hasMany(BuisnessTrip);
 BuisnessTrip.belongsTo(Department);
-BuisnessTrip.hasOne(Station);
+BuisnessTrip.belongsTo(Station);
+Station.hasOne(BuisnessTrip);
 Worker.hasMany(BuisnessTrip);
 BuisnessTrip.belongsTo(Worker);
 
