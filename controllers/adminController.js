@@ -213,3 +213,46 @@ export const postAddWorker = async(req, res, next) => {
         res.redirect('/error/500');
     }
 };
+
+export const postDeleteWorker = async(req, res) => {
+    const userId = req.body.userId;
+    const workerId = req.body.workerId;
+    const worker = await Worker.findByPk(workerId);
+    await worker.destroy();
+    res.redirect(`/admin/${userId}/workers`);
+}
+
+export const getEditWorker = async(req, res) => {
+    const userId = req.params.userId;
+    const workerId = req.params.workerId;
+    const worker = await Worker.findByPk(workerId);
+    const departments = await Department.findAll();
+    res.render('admin/edit-worker', {
+        pageTitle: 'Редактирование рабочего',
+        worker: worker,
+        userId: userId,
+        departments: departments
+    });
+};
+
+export const postEditWorker = async(req, res) => {
+    const userId = req.body.userId;
+    const workerId = req.body.workerId;
+    const updatedWorker = {
+        lastName: req.body.lastName,
+        firstName: req.body.firstName,
+        patronymic: req.body.patronymic,
+        dateOfBirth: req.body.dateOfBirth,
+        dateOfHiring: req.body.dateOfHiring,
+        departmentId: req.body.departmentId,
+        position: req.body.position,
+        salary: req.body.salary,
+        imageURL: req.body.imageURL
+    };
+    await Worker.update(updatedWorker, {
+        where: {
+            id: workerId
+        }
+    });
+    res.redirect(`/admin/${userId}/workers`);
+};

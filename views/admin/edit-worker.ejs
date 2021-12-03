@@ -1,0 +1,32 @@
+<%- include('../includes/head.ejs') %>
+<main>
+    <form action="/admin/workers/edit-worker" method="post">
+        <label for="lastName">Фамилия*:</label>
+        <input type="text" name="lastName" id="lastName" value="<%= worker.lastName %>" required><br>
+        <label for="firstName">Имя*:</label>
+        <input type="text" name="firstName" id="lastName" value="<%= worker.firstName %>" required><br>
+        <label for="patronymic">Отчество:</label>
+        <input type="text" name="patronymic" id="patronymic" value="<%= worker.patronymic ? worker.patronymic : '' %>"><br>
+        <label for="dateOfBirth">Дата рождения*:</label>
+        <input type="date" name="dateOfBirth" id="dateOfBirth" value="<%= worker.dateOfBirth %>" required><br>
+        <label for="dateOfHiring">Дата найма*:</label>
+        <input type="date" name="dateOfHiring" id="dateOfHiring" value="<%= worker.dateOfHiring %>" required><br>
+        <label for="departmentId">Отдел*:</label>
+        <select name="departmentId" id="departmentId">
+            <% for (let department of departments) {%>
+                <option value="<%= department.id %>" <%= (department.id === worker.departmentId) ? 'selected' : ''  %> ><%= department.name %></option>
+            <% }; %>
+        </select><br>
+        <label for="position">Должность*:</label>
+        <input type="text" name="position" id="position" value="<%= worker.position %>" required><br>
+        <label for="salary">Зарплата*:</label>
+        <input type="number" name="salary" id="salary" step="1" value="<%= worker.salary %>" required><br>
+        <label for="imageURL">URL картинки:</label>
+        <input type="text" name="imageURL" id="imageURL" value="<%= worker.imageURL %>"><br>
+        <input type="hidden" name="userId" value="<%= userId %>">
+        <input type="hidden" name="workerId" value="<%= worker.id %>">
+        <button type="submit">Редактировать</button>
+    </form>
+    <a href="/admin/<%= userId %>/workers">Назад</a>
+</main>
+<%- include('../includes/end.ejs') %>

@@ -34,6 +34,12 @@ adminRouter.get('/:userId/workers/add-worker', adminController.getAddWorker);
 
 adminRouter.post('/workers/add-worker', adminController.postAddWorker);
 
+adminRouter.post('/workers/delete-worker', adminController.postDeleteWorker);
+
+adminRouter.get('/:userId/workers/edit-worker/:workerId', adminController.getEditWorker);
+
+adminRouter.post('/workers/edit-worker', adminController.postEditWorker);
+
 adminRouter.get('/:userId', adminController.getAdmin);
 
 export default adminRouter;
