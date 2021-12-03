@@ -1,0 +1,22 @@
+<%- include('../includes/head.ejs') %>
+<main>
+    <h1>Все командировки:</h1>
+    <% for (let buisnessTrip of buisnessTrips) {%>
+        <h2><%= buisnessTrip.id %></h2>
+        <h2><%= buisnessTrip.status %></h2>
+        <% if (buisnessTrip.status == 'Ожидание подтверждения работником') {%>
+        <form action="/worker/buisness-trips/accept-trip" method="post">
+            <input type="hidden" name="buisnessTripId" value="<%= buisnessTrip.id %>">
+            <input type="hidden" name="userId" value="<%= userId %>">
+            <button type="submit">Принять</button>
+        </form>
+        <form action="/worker/buisness-trips/refuse-trip" method="post">
+            <input type="hidden" name="buisnessTripId" value="<%= buisnessTrip.id %>">
+            <input type="hidden" name="userId" value="<%= userId %>">
+            <button type="submit">Отказаться</button>
+        </form>
+        <% }; %>
+    <% }; %>
+    <a href="/worker/<%= userId %>">Назад</a>
+</main>
+<%- include('../includes/end.ejs') %>
