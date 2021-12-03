@@ -15,6 +15,11 @@
                 <option value="<%= worker.id %>"><%= worker.getFullName %></option>
             <% }; %>
         </select><br>
+        <select name="stationId" id="stationId">
+            <% for (let station of stations) {%>
+                <option value="<%= station.id %>"><%= station.name %></option>
+            <% }; %>
+        </select><br>
         <label for="cost">Стоимость*:</label>
         <input type="number" name="cost" id="cost" min="1" step="1"><br>
         <input type="hidden" name="userId" value="<%= userId %>">

@@ -16,6 +16,18 @@ chiefRouter.get('/:userId/buisness-trips/add-trip', chiefController.getAddTrip);
 
 chiefRouter.post('/buisness-trips/add-trip', chiefController.postAddTrip);
 
+chiefRouter.get('/:userId/stations', chiefController.getStations);
+
+chiefRouter.get('/:userId/stations/add-station', chiefController.getAddStation);
+
+chiefRouter.post('/stations/add-station', chiefController.postAddStation);
+
+chiefRouter.post('/stations/delete-station', chiefController.postDeleteStation);
+
+chiefRouter.get('/:userId/stations/edit-station/:stationId', chiefController.getEditStation);
+
+chiefRouter.post('/stations/edit-station', chiefController.postEditStation);
+
 chiefRouter.get('/:userId', chiefController.getChief);
 
 export default chiefRouter;

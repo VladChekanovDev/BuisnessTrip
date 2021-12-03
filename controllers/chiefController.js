@@ -5,6 +5,7 @@ import Chief from "../models/Chief.js";
 import Worker from "../models/Worker.js";
 import Department from "../models/Department.js";
 import BuisnessTrip from '../models/BuisnessTrip.js';
+import Station from '../models/Station.js';
 
 export const getChief = (req, res, next) => {
     const userId = req.params.userId;
@@ -100,11 +101,13 @@ export const getAddTrip = async(req, res) => {
     const user = await User.findByPk(userId);
     const chief = await user.getChief();
     const department = await chief.getDepartment();
+    const stations = await Station.findAll();
     const workers = await department.getWorkers();
     res.render('chief/add-trip', {
         pageTitle: 'Создание командировки',
         userId: userId,
-        workers: workers
+        workers: workers,
+        stations: stations
     });
 };
 
@@ -122,7 +125,7 @@ export const postAddTrip = async(req, res) => {
             cost: req.body.cost,
             workerId: req.body.workerId,
             departmentId: department.id,
-            status: 'Ожидание подтверждения работника'
+            status: 'Ожидание подтверждения работником'
         }
         const trip = await BuisnessTrip.create(newTrip);
         res.redirect(`/chief/${userId}/buisness-trips`);
@@ -131,3 +134,79 @@ export const postAddTrip = async(req, res) => {
         res.redirect('/error/500');
     }
 }
+
+export const getStations = async(req, res) => {
+    const userId = req.params.userId;
+    const stations = await Station.findAll();
+    res.render('chief/stations', {
+        pageTitle: 'Точки назначения',
+        stations: stations,
+        userId: userId
+    });
+};
+
+export const getAddStation = (req, res) => {
+    const userId = req.params.userId;
+    res.render('chief/add-station', {
+        pageTitle: 'Добавление точки',
+        userId: userId
+    })
+}
+
+export const postAddStation = async(req, res) => {
+    try {
+        const userId = req.body.userId
+        const newStation = {
+            name: req.body.name,
+            adress: req.body.adress
+        };
+        await Station.create(newStation);
+        res.redirect(`/chief/${userId}/stations`);
+    } catch(e) {
+        res.redirect('/error/500');
+    }
+};
+
+export const postDeleteStation = async(req, res) => {
+    const userId = req.body.userId;
+    const stationId = req.body.stationId;
+    const station = await Station.findByPk(stationId);
+    await station.destroy();
+    res.redirect(`/chief/${userId}/stations`)
+}
+
+export const getEditStation = async(req, res) => {
+    try {
+        const userId = req.params.userId;
+        const stationId = req.params.stationId;
+        const station = await Station.findByPk(stationId);
+        res.render('chief/edit-station', {
+            userId: userId,
+            pageTitle: 'Редактирование точки назначения',
+            station: station
+        })
+    } catch(e) {
+        console.log(e);
+        res.redirect('/error/500');
+    }
+}
+
+export const postEditStation = async(req, res) => {
+    try {
+        const userId = req.body.userId;
+        const stationId = req.body.stationId;
+        const updatedStation = {
+            name: req.body.name,
+            adress: req.body.adress
+        };
+        Station.update(updatedStation, {
+            where: {
+                id: stationId
+            }
+        });
+        res.redirect(`/admin/${userId}/stations`);
+    } catch(e) {
+        console.log(e);
+        res.redirect('/error/500');
+    }
+};
