@@ -16,6 +16,12 @@ chiefRouter.get('/:userId/buisness-trips/add-trip', chiefController.getAddTrip);
 
 chiefRouter.post('/buisness-trips/add-trip', chiefController.postAddTrip);
 
+chiefRouter.post('/buisness-trips/delete-trip', chiefController.postDeleteTrip);
+
+chiefRouter.get('/:userId/buisness-trips/edit-trip/:buisnessTripId', chiefController.getEditTrip);
+
+chiefRouter.post('/buisness-trips/edit-trip', chiefController.postEditTrip);
+
 chiefRouter.get('/:userId/stations', chiefController.getStations);
 
 chiefRouter.get('/:userId/stations/add-station', chiefController.getAddStation);

@@ -4,8 +4,14 @@
     <h2>Командировки</h2>
     <% for (let trip of buisnessTrips) {%>
         <%= trip.id %>
+        <form action="/chief/buisness-trips/delete-trip" method="post">
+            <input type="hidden" name="userId" value="<%= userId %>">
+            <input type="hidden" name="buisnessTripId" value="<%= trip.id %>">
+            <button type="submit">Удалить</button>
+        </form>
+        <a href="/chief/<%= userId %>/buisness-trips/edit-trip/<%= trip.id %>">Редактировать</a>
         <hr>
     <% }; %>
-    <a href="/chief/<%= userId %>/buisness-trips">На панель</a>
+    <a href="/chief/<%= userId %>">На панель</a>
 </main>
 <%- include('../includes/end.ejs') %>

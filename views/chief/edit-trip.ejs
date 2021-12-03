@@ -1,14 +1,14 @@
 <%- include('../includes/head.ejs') %>
 <main>
-    <form action="/chief/buisness-trips/add-trip" method="post">
+    <form action="/chief/buisness-trips/edit-trip" method="post">
         <label for="duration">Продолжительность командировки*:</label>
-        <input type="number" name="duration" id="duration" min="1" step="1" required><br>
+        <input type="number" name="duration" id="duration" min="1" step="1" value="<%= trip.duration %>" required><br>
         <label for="goal">Цель командировки*:</label>
-        <input type="text" name="goal" id="goal" required> <br>
+        <input type="text" name="goal" id="goal" value="<%= trip.goal %>" required> <br>
         <label for="orderNumber">Номер приказа*:</label>
-        <input type="text" name="orderNumber" id="orderNumber" required><br>
+        <input type="text" name="orderNumber" id="orderNumber" value="<%= trip.orderNumber %>" required><br>
         <label for="orderDate">Дата приказа*:</label>
-        <input type="date" name="orderDate" id="orderDate"><br>
+        <input type="date" name="orderDate" id="orderDate" value="<%= trip.orderDate %>" required><br>
         <label for="workerId">Рабочий*:</label>
         <select name="workerId" id="workerId">
             <% for (let worker of workers) {%>
@@ -21,8 +21,9 @@
             <% }; %>
         </select><br>
         <label for="cost">Стоимость*:</label>
-        <input type="number" name="cost" id="cost" min="1" step="1"><br>
+        <input type="number" name="cost" id="cost" min="1" step="1" value="<%= trip.cost %>" required><br>
         <input type="hidden" name="userId" value="<%= userId %>">
+        <input type="hidden" name="buisnessTripId" value="<%= trip.id %>">
         <button type="submit">Назначить командировку</button>
     </form>
     <a href="/chief/<%= userId %>/buisness-trips">Назад</a>

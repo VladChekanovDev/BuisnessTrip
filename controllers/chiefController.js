@@ -125,9 +125,66 @@ export const postAddTrip = async(req, res) => {
             cost: req.body.cost,
             workerId: req.body.workerId,
             departmentId: department.id,
+            stationId: req.body.stationId,
             status: 'Ожидание подтверждения работником'
         }
         const trip = await BuisnessTrip.create(newTrip);
+        res.redirect(`/chief/${userId}/buisness-trips`);
+    } catch(e) {
+        console.log(e);
+        res.redirect('/error/500');
+    }
+};
+
+export const postDeleteTrip = async(req, res) => {
+    const userId = req.body.userId;
+    const buisnessTripId = req.body.buisnessTripId;
+    const buisnessTrip = await BuisnessTrip.findByPk(buisnessTripId);
+    await buisnessTrip.destroy();
+    res.redirect(`/chief/${userId}/buisness-trips`);
+};
+
+export const getEditTrip = async(req, res) => {
+    const userId = req.params.userId;
+    const user = await User.findByPk(userId);
+    const chief = await user.getChief();
+    const department = await chief.getDepartment();
+    const workers = await department.getWorkers();
+    const stations = await Station.findAll();
+    const buisnessTripId = req.params.buisnessTripId;
+    const trip = await BuisnessTrip.findByPk(buisnessTripId);
+    console.log(trip);
+    res.render('chief/edit-trip', {
+        pageTitle: 'Редактирование командировки',
+        userId: userId,
+        trip: trip,
+        workers: workers,
+        stations: stations
+    });
+};
+
+export const postEditTrip = async(req, res) => {
+    try {
+        const userId = req.body.userId;
+        const user = await User.findByPk(userId);
+        const chief = await user.getChief();
+        const department = await chief.getDepartment();
+        const updatedTrip = {
+            duration: req.body.duration,
+            goal: req.body.goal,
+            orderNumber: req.body.orderNumber,
+            orderDate: req.body.orderDate,
+            cost: req.body.cost,
+            workerId: req.body.workerId,
+            departmentId: department.id,
+            stationId: req.body.stationId,
+            status: 'Ожидание подтверждения работником'
+        }
+        const trip = await BuisnessTrip.update(updatedTrip, {
+            where: {
+                id: req.body.buisnessTripId
+            }
+        });
         res.redirect(`/chief/${userId}/buisness-trips`);
     } catch(e) {
         console.log(e);
