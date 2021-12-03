@@ -5,6 +5,12 @@
     <% for (let department of departments) {%>
         <%= department.name %> <br>
         <%= department.adress %> <br>
+        <form action="/admin/departments/delete-department" method="post">
+            <input type="hidden" name="userId" value="<%= userId %>">
+            <input type="hidden" name="departmentId" value="<%= department.id %>">
+            <button type="submit">Удалить</button>
+        </form>
+        <a href="/admin/<%= userId %>/departments/edit-department/<%= department.id %>">Редактировать</a>
         <hr>
     <% } %>
     <a href="/admin/<%= userId %>">На панель</a>

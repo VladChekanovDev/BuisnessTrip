@@ -10,6 +10,12 @@ adminRouter.get('/:userId/departments/add-department', adminController.getAddDep
 
 adminRouter.post('/departments/add-department', adminController.postAddDepartment);
 
+adminRouter.post('/departments/delete-department', adminController.postDeleteDepartment);
+
+adminRouter.get('/:userId/departments/edit-department/:departmentId', adminController.getEditDepartment);
+
+adminRouter.post('/departments/edit-department', adminController.postEditDepartment);
+
 adminRouter.get('/:userId/chiefs', adminController.getChiefs);
 
 adminRouter.get('/:userId/chiefs/add-chief', adminController.getAddChief);

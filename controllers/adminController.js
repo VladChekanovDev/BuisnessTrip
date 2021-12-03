@@ -42,6 +42,39 @@ export const postAddDepartment = async(req, res, next) => {
     res.redirect(`/admin/${userId}/departments`);
 };
 
+export const postDeleteDepartment = async(req, res) => {
+    const userId = req.body.userId;
+    const departmentId = req.body.departmentId;
+    const department = await Department.findByPk(departmentId);
+    await department.destroy();
+    res.redirect(`/admin/${userId}/departments`);
+};
+
+export const getEditDepartment = async(req, res) => {
+    const userId = req.params.userId;
+    const departmentId = req.params.departmentId;
+    const department = await Department.findByPk(departmentId);
+    res.render('admin/edit-department', {
+        pageTitle: 'Редактирование информации об отдела',
+        department: department,
+        userId: userId
+    })
+};
+
+export const postEditDepartment = async(req, res) => {
+    const userId = req.body.userId;
+    const updatedDepartment = {
+        name: req.body.name,
+        adress: req.body.adress
+    };
+    await Department.update(updatedDepartment, {
+        where: {
+            id: req.body.departmentId
+        }
+    });
+    res.redirect(`/admin/${userId}/departments`);
+};
+
 export const getChiefs = async(req, res, next) => {
     const userId = req.params.userId;
     const chiefs = await Chief.findAll();
