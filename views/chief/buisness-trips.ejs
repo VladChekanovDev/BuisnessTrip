@@ -1,5 +1,11 @@
 <%- include('../includes/head.ejs') %>
 <main>
+    <a href="/chief/<%= userId %>/buisness-trips/add-trip">Назначить командировку</a>
     <h2>Командировки</h2>
+    <% for (let trip of buisnessTrips) {%>
+        <%= trip.id %>
+        <hr>
+    <% }; %>
+    <a href="/chief/<%= userId %>/buisness-trips">На панель</a>
 </main>
 <%- include('../includes/end.ejs') %>

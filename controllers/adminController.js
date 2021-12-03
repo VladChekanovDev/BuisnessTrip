@@ -100,25 +100,29 @@ export const getAddChief = async(req, res, next) => {
 };
 
 export const postAddChief = async(req, res, next) => {
-    const userId = req.body.userId;
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const patronymic = req.body.patronymic;
-    const login = req.body.login;
-    const password = md5(req.body.password);
-    const departmentId = req.body.departmentId;
-    const position = req.body.position;
-    await User.registrateChief({
-        login: login,
-        password: password,
-        userType: 'chief',
-    }, {
-        firstName: firstName,
-        lastName: lastName,
-        patronymic: patronymic,
-        position: position
-    }, departmentId);
-    res.redirect(`/admin/${userId}/chiefs`);   
+    try {
+        const userId = req.body.userId;
+        const firstName = req.body.firstName;
+        const lastName = req.body.lastName;
+        const patronymic = req.body.patronymic;
+        const login = req.body.login;
+        const password = md5(req.body.password);
+        const departmentId = req.body.departmentId;
+        const position = req.body.position;
+        await User.registrateChief({
+            login: login,
+            password: password,
+            userType: 'chief',
+        }, {
+            firstName: firstName,
+            lastName: lastName,
+            patronymic: patronymic,
+            position: position
+        }, departmentId);
+        res.redirect(`/admin/${userId}/chiefs`);   
+    } catch(e) {
+        res.redirect('/error/500');
+    }
 };
 
 export const postDeleteChief = async(req, res) => {

@@ -1,0 +1,24 @@
+<%- include('../includes/head.ejs') %>
+<main>
+    <form action="/chief/buisness-trips/add-trip" method="post">
+        <label for="duration">Продолжительность командировки*:</label>
+        <input type="number" name="duration" id="duration" min="1" step="1" required><br>
+        <label for="goal">Цель командировки*:</label>
+        <input type="text" name="goal" id="goal" required> <br>
+        <label for="orderNumber">Номер приказа*:</label>
+        <input type="text" name="orderNumber" id="orderNumber" required><br>
+        <label for="orderDate">Дата приказа*:</label>
+        <input type="date" name="orderDate" id="orderDate"><br>
+        <label for="workerId">Рабочий*:</label>
+        <select name="workerId" id="workerId">
+            <% for (let worker of workers) {%>
+                <option value="<%= worker.id %>"><%= worker.getFullName %></option>
+            <% }; %>
+        </select><br>
+        <label for="cost">Стоимость*:</label>
+        <input type="number" name="cost" id="cost" min="1" step="1"><br>
+        <input type="hidden" name="userId" value="<%= userId %>">
+        <button type="submit">Назначить командировку</button>
+    </form>
+</main>
+<% include('../includes/end.ejs') %>

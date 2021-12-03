@@ -36,6 +36,12 @@ const Worker = sequelize.define('worker', {
         type: Sequelize.INTEGER,
         allowNull: false
     }
+}, {
+    getterMethods: {
+        getFullName() {
+            return this.lastName + ' ' + this.firstName + ' ' + this.patronymic;
+        }
+    }
 });
 
 export default Worker;

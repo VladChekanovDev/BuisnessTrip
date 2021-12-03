@@ -4,6 +4,7 @@ import User from '../models/User.js';
 import Chief from "../models/Chief.js";
 import Worker from "../models/Worker.js";
 import Department from "../models/Department.js";
+import BuisnessTrip from '../models/BuisnessTrip.js';
 
 export const getChief = (req, res, next) => {
     const userId = req.params.userId;
@@ -75,3 +76,58 @@ export const postAddWorker = async(req, res, next) => {
         res.redirect('/error/500');
     }
 };
+
+export const getBuinessTrips = async(req, res) => {
+    const userId = req.params.userId;
+    const user = await User.findByPk(userId);
+    const chief = await user.getChief();
+    const department = await chief.getDepartment();
+    console.log(user, chief, department);
+    const buisnessTrips = await BuisnessTrip.findAll({
+        where: {
+            departmentId: department.id
+        }
+    });
+    res.render('chief/buisness-trips', {
+        pageTitle: 'Все командировки',
+        buisnessTrips: buisnessTrips,
+        userId: userId
+    });
+};
+
+export const getAddTrip = async(req, res) => {
+    const userId = req.params.userId;
+    const user = await User.findByPk(userId);
+    const chief = await user.getChief();
+    const department = await chief.getDepartment();
+    const workers = await department.getWorkers();
+    res.render('chief/add-trip', {
+        pageTitle: 'Создание командировки',
+        userId: userId,
+        workers: workers
+    });
+};
+
+export const postAddTrip = async(req, res) => {
+    try {
+        const userId = req.body.userId;
+        const user = await User.findByPk(userId);
+        const chief = await user.getChief();
+        const department = await chief.getDepartment();
+        const newTrip = {
+            duration: req.body.duration,
+            goal: req.body.goal,
+            orderNumber: req.body.orderNumber,
+            orderDate: req.body.orderDate,
+            cost: req.body.cost,
+            workerId: req.body.workerId,
+            departmentId: department.id,
+            status: 'Ожидание подтверждения работника'
+        }
+        const trip = await BuisnessTrip.create(newTrip);
+        res.redirect(`/chief/${userId}/buisness-trips`);
+    } catch(e) {
+        console.log(e);
+        res.redirect('/error/500');
+    }
+}
