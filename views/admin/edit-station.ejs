@@ -1,0 +1,14 @@
+<%- include('../includes/head.ejs') %>
+<main>
+    <form action="/admin/stations/edit-station" method="post">
+        <label for="name">Название*:</label>
+        <input type="text" name="name" id="name" value="<%= station.name %>" required><br>
+        <label for="adress">Адрес*:</label>
+        <input type="text" name="adress" id="adress" value="<%= station.adress %>" required><br>
+        <input type="hidden" name="userId" value="<%= userId %>">
+        <input type="hidden" name="stationId" value="<%= station.id %>">
+        <button type="submit">Редактировать</button>
+    </form>
+    <a href="/admin/<%= userId %>/stations">Назад</a>
+</main>
+<%- include('../includes/end.ejs') %>

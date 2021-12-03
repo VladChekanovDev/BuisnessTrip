@@ -1,0 +1,17 @@
+<%- include('../includes/head.ejs') %>
+<main>
+    <a href="/admin/<%= userId %>/stations/add-station">Добавить точку назначения</a>
+    <h1>Точки назначения: </h1>
+    <% for (let station of stations) {%>
+        <h2><%= station.name %></h2>
+        <h2><%= station.adress %></h2>
+        <form action="/admin/stations/delete-station" method="post">
+            <input type="hidden" name="stationId" value="<%= station.id %>">
+            <input type="hidden" name="userId" value="<%= userId %>">
+            <button type="submit">Удалить</button>
+        </form>
+        <a href="/admin/<%= userId %>/stations/edit-station/<%= station.id %>">Редактировать</a>
+        <hr>
+    <% }; %>
+</main>
+<%- include('../includes/end.ejs') %>

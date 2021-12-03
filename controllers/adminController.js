@@ -4,6 +4,7 @@ import User from "../models/User.js";
 import Chief from "../models/Chief.js";
 import Department from "../models/Department.js";
 import Worker from "../models/Worker.js";
+import Station from "../models/Station.js";
 
 export const getAdmin = (req, res, next) => {
     const userId = req.params.userId;
@@ -270,4 +271,88 @@ export const postFireWorker = async(req, res) => {
         }
     });
     res.redirect(`/admin/${userId}/workers`);
+};
+
+export const getStations = async(req, res) => {
+    const userId = req.params.userId;
+    const stations = await Station.findAll();
+    res.render('admin/stations', {
+        pageTitle: 'Точки назначения',
+        stations: stations,
+        userId: userId
+    })
+};
+
+export const getAddStation = (req, res) => {
+    const userId = req.params.userId;
+    res.render('admin/add-station', {
+        pageTitle: 'Добавление точки назначения',
+        userId: userId
+    })
+};
+
+export const postAddStation = async(req, res) => {
+    try {
+        const userId = req.body.userId
+        const newStation = {
+            name: req.body.name,
+            adress: req.body.adress
+        };
+        await Station.create(newStation);
+        res.redirect(`/admin/${userId}/stations`);
+    } catch(e) {
+        res.redirect('/error/500');
+    }
+};
+
+export const postDeleteStation = async(req, res) => {
+    try {
+        const userId = req.body.userId;
+        const stationId = req.body.stationId;
+        Station.destroy({
+            where: {
+                id: stationId
+            }
+        });
+        res.redirect(`/admin/${userId}/stations`);
+    } catch(e) {
+        console.log(e);
+        res.redirect('/error/500');
+    }
+};
+
+export const getEditStation = async(req, res) => {
+    try {
+        const userId = req.params.userId;
+        const stationId = req.params.stationId;
+        const station = await Station.findByPk(stationId);
+        res.render('admin/edit-station', {
+            userId: userId,
+            pageTitle: 'Редактирование точки назначения',
+            station: station
+        })
+    } catch(e) {
+        console.log(e);
+        res.redirect('/error/500');
+    }
+};
+
+export const postEditStation = async(req, res) => {
+    try {
+        const userId = req.body.userId;
+        const stationId = req.body.stationId;
+        const updatedStation = {
+            name: req.body.name,
+            adress: req.body.adress
+        };
+        Station.update(updatedStation, {
+            where: {
+                id: stationId
+            }
+        });
+        res.redirect(`/admin/${userId}/stations`);
+    } catch(e) {
+        console.log(e);
+        res.redirect('/error/500');
+    }
 };

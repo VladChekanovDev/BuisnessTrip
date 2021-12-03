@@ -42,6 +42,18 @@ adminRouter.post('/workers/edit-worker', adminController.postEditWorker);
 
 adminRouter.post('/workers/fire-worker', adminController.postFireWorker);
 
+adminRouter.get('/:userId/stations', adminController.getStations);
+
+adminRouter.get('/:userId/stations/add-station', adminController.getAddStation);
+
+adminRouter.post('/stations/add-station', adminController.postAddStation);
+
+adminRouter.post('/stations/delete-station', adminController.postDeleteStation);
+
+adminRouter.get('/:userId/stations/edit-station/:stationId', adminController.getEditStation);
+
+adminRouter.post('/stations/edit-station', adminController.postEditStation);
+
 adminRouter.get('/:userId', adminController.getAdmin);
 
 export default adminRouter;

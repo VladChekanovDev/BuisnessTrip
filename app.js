@@ -46,7 +46,7 @@ app.use('/error', errorRouter);
 app.use('/chief', chiefRouter);
 
 app.use((req, res, next) => {
-    res.redirect('/error/404');
+    res.status(404).redirect('/error/404');
 });
 
 //assoсiations
