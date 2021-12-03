@@ -1,0 +1,22 @@
+<%- include('../includes/head.ejs') %>
+<main>
+    <form action="/admin/chiefs/edit-chief" method="post">
+        <label for="firstName">Имя*:</label>
+        <input type="text" name="firstName" id="firstName" value="<%= chief.firstName %>" required><br>
+        <label for="lastName">Фамилия*:</label>
+        <input type="text" name="lastName" id="lastName" value="<%= chief.lastName %>" required><br>
+        <label for="patronymic">Отчество:</label>
+        <input type="text" name="patronymic" id="login" value="<%= chief.patronymic %>" required><br>
+        <label for="departmenId">Отдел*:</label>
+        <select name="departmentId" id="department">
+            <% for (let department of departments) {%>
+                <option value="<%= department.id %>"><%= department.name %></option>
+            <% }; %>
+        </select><br>
+        <input type="hidden" name="userId" value="<%= userId %>">
+        <input type="hidden" name="chiefId" value="<%= chief.id %>">
+        <button type="submit">Редактировать</button>
+    </form>
+    <a href="/admin/<%= userId %>/chiefs">Назад</a>
+</main>
+<% include('../includes/end.ejs') %>

@@ -118,6 +118,44 @@ export const postAddChief = async(req, res, next) => {
     res.redirect(`/admin/${userId}/chiefs`);   
 };
 
+export const postDeleteChief = async(req, res) => {
+    const userId = req.body.userId;
+    const chiefId = req.body.chiefId;
+    const chief = await Chief.findByPk(chiefId);
+    await chief.destroy();
+    res.redirect(`/admin/${userId}/chiefs`);
+};
+
+export const getEditChief = async(req, res) => {
+    const userId = req.params.userId;
+    const chiefId = req.params.chiefId;
+    const chief = await Chief.findByPk(chiefId);
+    const departments = await Department.findAll(); 
+    res.render('admin/edit-chief', {
+        pageTitle: 'Редактирование начальника',
+        userId: userId,
+        chief: chief,
+        departments: departments
+    })
+};
+
+export const postEditChief = async(req, res) => {
+    const userId = req.body.userId;
+    const chiefId = req.body.chiefId;
+    const updatedChief = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        patronymic: req.body.patronymic,
+        departmentId: req.body.departmentId
+    };
+    await Chief.update(updatedChief, {
+        where: {
+            id: chiefId
+        }
+    });
+    res.redirect(`/admin/${userId}/chiefs`);
+};
+
 export const getWorkers = async(req, res, next) => {
     const userId = req.params.userId;
     const workers = await Worker.findAll();

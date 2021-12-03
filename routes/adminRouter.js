@@ -22,6 +22,12 @@ adminRouter.get('/:userId/chiefs/add-chief', adminController.getAddChief);
 
 adminRouter.post('/chiefs/add-chief', adminController.postAddChief);
 
+adminRouter.post('/chiefs/delete-chief', adminController.postDeleteChief);
+
+adminRouter.get('/:userId/chiefs/edit-chief/:chiefId', adminController.getEditChief);
+
+adminRouter.post('/chiefs/edit-chief', adminController.postEditChief);
+
 adminRouter.get('/:userId/workers', adminController.getWorkers);
 
 adminRouter.get('/:userId/workers/add-worker', adminController.getAddWorker);
