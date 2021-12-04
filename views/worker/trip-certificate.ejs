@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/certificate.css">
+    <title>Командировочное удостоверение</title>
+</head>
+<body>
+    <main>
+        <div class="main-container">
+            <div class="front-page">
+                <pre>
+Утверждено постановлением Минфина от 12.04.2000 N 35
+
+Форма
+
+Штамп организации
+                    КОМАНДИРОВОЧНОЕ УДОСТОВЕРЕНИЕ N _<span class="underlined"><%= buisnessTrip.id %></span>_ 
+__<span class="underlined"><%= worker.getFullName %></span><% for (let i = 1; i <= 75-2-worker.getFullName.length; i++) {%>_<% }; %>
+        (фамилия, собственное имя, отчество (если таковое имеется)
+__<span class="underlined"><%= worker.position %></span><% for (let i = 1; i <= 75-2-worker.position.length; i++) {%>_<% }; %>
+                        (должность, место работы)
+командируется в __<span class="underlined"><%=station.getFullAdress%></span><% for (let i = 1; i <= 59-2-station.getFullAdress.length; i++) {%>_<% }; %>
+                (место служебной командировки, наименование организации)
+Срок командировки <span class="underlinded"><%= buisnessTrip.duration %></span> дней.
+__<span class="underlined"><%= buisnessTrip.goal %></span><% for (let i = 1; i <= 75-2-buisnessTrip.goal.length; i++) {%>_<% }; %>
+                            (цель командировки)
+Основание: приказ (распоряжение) от <span class="underlined"><%= buisnessTrip.getDay %></span> <span><%= buisnessTrip.getMonth %></span> 20<span class="underlined"><%= buisnessTrip.getYear %></span> г. N <span class="underlined"><%= buisnessTrip.orderNumber %></span>
+Действительно по предъявлению документа, удостоверяющего личность.
+__<span class="underlined"><%= chief.position %></span><% for (let i = 1; i <= 35-2-chief.position.length; i++) {%>_<% }; %>               __<span class="underlined"><%= chief.getInitials %></span><% for (let i = 1; i <= 25-2-chief.getInitials.length; i++) {%>_<% }; %>
+(должность, подпись руководителя)                  (расшифровка подписи)
+            М.П.
+                </pre>
+            </div>
+            <div class="back-page">
+                <pre>
+Оборотная сторона
+Отметки о выбытии в служебную командировку, прибытии к месту служебной
+командировки, выбытии из него и прибытии к месту постоянной работы:
+Выбыл из <span class="underlined"><%= department.adress %></span><% for (let i = 1; i <= 23-department.adress.length; i++) {%>_<% }; %>        Прибыл в <span class="underlined"><%= station.adress %></span><% for (let i = 1; i <= 23-station.adress.length; i++) {%>_<% }; %>
+____ ____________ 20__ г.               _<span class="underlined"><%= buisnessTrip.getBeginDay %></span><% for (let i = 1; i <= 3-buisnessTrip.getBeginDay.length; i++) {%>_<% }; %> __<span class="underlined"><%= buisnessTrip.getBeginMonth %></span><% for (let i = 1; i <= 12-2-buisnessTrip.getBeginMonth.length; i++) {%>_<% }; %> 20<span class="underlined"><%= buisnessTrip.getBeginYear %></span> г.
+________________________________        ___________________________________
+(подпись, печать)                           (подпись, печать)
+(расшифровка подписи)                       (расшифровка подписи)
+Выбыл из <span class="underlined"><%= station.adress %></span><% for (let i = 1; i <= 23-station.adress.length; i++) {%>_<% }; %>        Прибыл в <span class="underlined"><%= department.adress %></span><% for (let i = 1; i <= 23-department.adress.length; i++) {%>_<% }; %>
+_<span class="underlined"><%= endDate.getDate() %></span><% for (let i = 1; i <= 3-endDate.getDate().toString().length; i++) {%>_<% }; %> __<span class="underlined"><%= endDate.month %></span><% for (let i = 1; i <= 12-2-endDate.month.length; i++) {%>_<% }; %> 20<span class="underlined"><%= endDate.getFullYear().toString().substr(2,2) %></span> г.               ____ ____________ 20__ г.
+________________________________        ___________________________________
+      (подпись, печать)                          (подпись, печать)
+    (расшифровка подписи)                      (расшифровка подписи)
+</pre>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

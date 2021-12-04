@@ -1,0 +1,13 @@
+body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14px;
+}
+
+.main-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+span {
+    text-decoration: underline;
+}

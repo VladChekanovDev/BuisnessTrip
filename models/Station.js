@@ -17,6 +17,12 @@ const Station = sequelize.define('station', {
         type: Sequelize.STRING,
         allowNull: false
     }
+}, {
+    getterMethods: {
+        getFullAdress() {
+            return this.adress + ', ' + this.name
+        }
+    }
 });
 
 export default Station;

@@ -40,6 +40,9 @@ const Worker = sequelize.define('worker', {
     getterMethods: {
         getFullName() {
             return this.lastName + ' ' + this.firstName + ' ' + this.patronymic;
+        },
+        getInitials() {
+            return this.lastName + ' ' + this.firstName.substr(0,1) + '. ' + this.patronymic.substr(0,1) + '.';
         }
     }
 });

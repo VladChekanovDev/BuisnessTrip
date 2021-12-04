@@ -22,6 +22,12 @@ const Chief = sequelize.define('chief', {
         type: Sequelize.STRING,
         allowNull: false
     }
+}, {
+    getterMethods: {
+        getInitials() {
+            return this.lastName + ' ' + this.firstName.substr(0,1) + '. ' + this.patronymic.substr(0,1) + '.';
+        }
+    }
 });
 
 export default Chief;
