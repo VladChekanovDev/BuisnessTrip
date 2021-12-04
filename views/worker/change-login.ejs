@@ -1,0 +1,15 @@
+<%- include('../includes/head.ejs') %>
+<main>
+    Поменять логин<br>
+    <form action="/worker/change-login" method="post">
+        <label for="new-login">Новый логин*:</label>
+        <input type="login" name="newLogin" id="new-login" required><br>
+        <label for="repeat-new-login">Повторите новый логин*:</label>
+        <input type="password" name="repeatNewLogin" id="repeat-new-login"><br>
+        <input type="hidden" name="userId" value="<%= userId %>">
+        <input type="hidden" name="workerId" value="<%= worker.id %>">
+        <button type="submit">Изменить логин</button>
+    </form>
+    <a href="/worker/<%= userId %>">Назад</a>
+</main>
+<%- include('../includes/end.ejs') %>

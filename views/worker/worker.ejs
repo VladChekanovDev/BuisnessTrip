@@ -1,5 +1,9 @@
 <%- include('../includes/head.ejs') %>
 <main>
-    <a href="/worker/<%= userId %>/buisness-trips">Мои командировки</a>
+    <a href="/worker/<%= userId %>/buisness-trips">Мои командировки</a><br>
+    <img src="<%= worker.imageURL %>" alt="<%= worker.lastName %>">
+    <h2><%= worker.getFullName %></h2>
+    <a href="/worker/<%= userId %>/change-login">Изменить логин</a><br>
+    <a href="/worker/<%= userId %>/change-password">Изменить пароль</a>
 </main>
 <%- include('../includes/end.ejs') %>

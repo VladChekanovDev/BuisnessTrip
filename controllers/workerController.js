@@ -1,12 +1,16 @@
 import User from "../models/User.js";
 import Department from "../models/Department.js";
 import BuisnessTrip from "../models/BuisnessTrip.js";
+import md5 from "md5";
 
-export const getWorker = (req, res, next) => {
+export const getWorker = async(req, res, next) => {
     const userId = req.params.userId;
+    const user = await User.findByPk(userId);
+    const worker = await user.getWorker();
     res.render('worker/worker', {
         pageTitle: 'Панель рабочего',
-        userId: userId
+        userId: userId,
+        worker: worker
     });
 };
 
@@ -107,3 +111,53 @@ export const getTripCertificate = async(req, res) => {
         endDate: endDate  
     })
 };
+
+export const getChangeLogin = async(req, res) => {
+    const userId = req.params.userId;
+    const user = await User.findByPk(userId);
+    const worker = await user.getWorker();
+    res.render('worker/change-login', {
+        userId: userId,
+        worker: worker,
+        pageTitle: 'Изменить логин'
+    });
+};
+
+export const getChangePassword = async(req, res) => {
+    const userId = req.params.userId;
+    const user = await User.findByPk(userId);
+    const worker = await user.getWorker();
+    res.render('worker/change-password', {
+        userId: userId,
+        worker: worker,
+        pageTitle: 'Изменить пароль'
+    });    
+};
+
+export const postChangePassword = async(req, res) => {
+    const userId = req.body.userId;
+    const workerId = req.body.workerId;
+    const newPassword = req.body.newPassword;
+    User.update({
+        password: md5(newPassword) 
+    }, {
+        where: {
+            id: userId
+        }
+    });
+    res.redirect(`/worker/${userId}`);
+};
+
+export const postChangeLogin = async(req, res) => {
+    const userId = req.body.userId;
+    const workerId = req.body.workerId;
+    const newLogin = req.body.newLogin;
+    User.update({
+        login: newLogin 
+    }, {
+        where: {
+            id: userId
+        }
+    });
+    res.redirect(`/worker/${userId}`);
+}
