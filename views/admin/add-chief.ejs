@@ -1,30 +1,60 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs', {panel: 'admin'}) %>
-<main>
-    <form action="/admin/chiefs/add-chief" method="post">
-        <label for="firstName">Имя*:</label>
-        <input type="text" name="firstName" id="firstName" required><br>
-        <label for="lastName">Фамилия*:</label>
-        <input type="text" name="lastName" id="lastName" required><br>
-        <label for="patronymic">Отчество:</label>
-        <input type="text" name="patronymic" id="login" required><br>
-        <label for="login">Логин*:</label>
-        <input type="login" name="login" id="login" required><br>
-        <label for="password">Пароль*:</label>
-        <input type="password" name="password" id="password" required><br>
-        <label for="repeat-password">Повторите пароль*:</label>
-        <input type="password" name="repeatPassword" id="repeat-password" required><br>
-        <label for="departmentId">Отдел*:</label>
-        <select name="departmentId" id="departmentId">
-            <% for (let department of departments) {%>
-                <option value="<%= department.id %>"><%= department.name %></option>
-            <% }; %>
-        </select><br>
-        <label for="position">Должность*:</label>
-        <input type="text" name="position" id="position" required><br>
-        <input type="hidden" name="userId" value="<%= userId %>">
-        <button type="submit">Зарегистрировать</button>
-    </form>
-    <a href="/admin/<%= userId %>/chiefs">Назад</a>
-</main>
+<div class="container">
+
+    <main>
+        <form action="/admin/chiefs/add-chief" method="post">
+            <div class="row">
+                <div class="input-field">
+                    <label for="firstName">Имя*</label>
+                    <input class="validate" type="text" name="firstName" id="firstName" required>
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row"><div class="input-field">
+                <label for="lastName">Фамилия*</label>
+                <input class="validate" type="text" name="lastName" id="lastName" required>
+                <span class="helper-text" data-error="Заполните поле"></span>
+            </div></div>
+            <div class="row"><div class="input-field">
+                <label for="patronymic">Отчество*</label>
+                <input class="validate" type="text" name="patronymic" id="patronymic" required>
+                <span class="helper-text" data-error="Заполните поле"></span>
+            </div></div>
+            <div class="row"><div class="input-field">
+                <label for="login">Логин*</label>
+                <input class="validate" type="text" name="login" id="login" required>
+                <span class="helper-text" data-error="Заполните поле"></span>
+            </div></div>
+            <div class="row"><div class="input-field">
+                <label for="password">Пароль*</label>
+                <input class="validate" type="password" name="password" id="password" required>
+                <span class="helper-text" data-error="Заполните поле"></span>
+            </div></div>
+            <div class="row"><div class="input-field">
+                <label for="repeat-password">Повторите пароль*</label>
+                <input class="validate" type="password" name="repeatPassword" id="repeat-password" required>
+                <span class="helper-text" data-error="Заполните поле"></span>
+            </div></div>
+            <div class="row"><div class="input-field">
+                <select name="departmentId" id="departmentId">
+                    <option value="" selected disabled>Choose</option>
+                    <option value="1">1</option>
+                    <!-- <% for (let department of departments) {%>
+                        <option value="<%= department.id %>"><%= department.name %></option>
+                    <% }; %> -->
+                </select>
+                <label for="departmentId">Выберите отдел*</label>
+            </div></div>
+            <div class="row"><div class="input-field">
+                <label for="position">Должность*</label>
+                <input type="text" name="position" id="position" required>
+                <span class="helper-text" data-error="Заполните поле"></span>
+            </div></div>
+            <input type="hidden" name="userId" value="<%= userId %>">
+            <button type="submit">Зарегистрировать</button>
+        </form>
+        <a href="/admin/<%= userId %>/chiefs">Назад</a>
+    </main>
+</div>
 <% include('../includes/end.ejs') %>
