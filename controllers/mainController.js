@@ -8,7 +8,6 @@ export const getBackSlash = (req, res, next) => {
 
 export const getMain = (req, res, next) => {
     const userNotFound = req.query.userNotFound;
-    console.log(userNotFound);
     res.render('main/main', {
         pageTitle: 'Главная страница',
         userNotFound: userNotFound

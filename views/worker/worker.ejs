@@ -1,4 +1,5 @@
 <%- include('../includes/head.ejs') %>
+<%- include('../includes/header.ejs', {panel: 'worker'}) %>
 <main>
     <a href="/worker/<%= userId %>/buisness-trips">Мои командировки</a><br>
     <img src="<%= worker.imageURL %>" alt="<%= worker.lastName %>">
