@@ -1,28 +1,35 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs', {panel: 'admin'}) %>
-<main>
-    <a href="/admin/<%= userId %>/workers/add-worker">Добавить рабочего</a>
-    <h1>Рабочие:</h1>
-    <% for (let worker of workers) {%>
-        <%= worker.lastName %> <br>
-        <%= worker.firstName %> <br>
-        <%= worker.patronymic ? worker.patronymic : '' %><br>
-        <%= worker.department.name %><br>
-        <%= worker.position %>
-        <img src="<%= worker.imageURL %>" alt="<%= worker.lastName %>">
-        <form action="/admin/workers/delete-worker" method="post">
-            <input type="hidden" name="userId" value="<%= userId %>">
-            <input type="hidden" name="workerId" value="<%= worker.id %>">
-            <button type="submit">Удалить</button>
-        </form>
-        <a href="/admin/<%= userId %>/workers/edit-worker/<%= worker.id %>">Редактировать</a>
-        <form action="/admin/workers/fire-worker" method="post">
-            <input type="hidden" name="workerId" value="<%= worker.id %>">
-            <input type="hidden" name="userId" value="<%= userId %>">
-            <button type="submit">Уволить</button>
-        </form>
-        <hr>
-    <% }; %>
-    <a href="/admin/<%= userId %>">На панель</a>
-</main>
+<div class="container">
+    <main class="valign-wrapper">
+        <div class="row">
+            <% for (let worker of workers) {%>
+                <div class="card col s6 large">
+                    <div class="card-image">
+                      <img src="<%= worker.imageURL %>">
+                      <span style="font-weight: 600;" class="card-title"><%= worker.getInitials %></span>
+                    </div>
+                    <div class="card-content">
+                      <p>ФИО: <%= worker.getFullName %> <br> Отделение: <%= worker.department.name %> <br><%= (!worker.dateOfDismissal) ? `Работает с: ${worker.dateOfHiring}` : `Уволен: ${worker.dateOfDismissal}` %> ЗП: <%= worker.salary %>руб</p>
+                    </div>
+                    <div class="card-action">
+                      <div class="row">
+                        <a class="btn-large white orange-text lighten-1 col s4" href="/admin/<%= userId %>/workers/edit-worker/<%= worker.id %>">Редактировать</a>
+                        <form class="col s2 offset-s6" action="/admin/workers/delete-worker" method="post">
+                            <input type="hidden" name="userId" value="<%= userId %>">
+                            <input type="hidden" name="workerId" value="<%= worker.id %>">
+                            <button class="btn-floating red btn-large waves-effect waves-light" type="submit"><i class="material-icons">delete</i></button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+            <% }; %>
+        </div>
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large red" href="/admin/<%= userId %>/workers/add-worker">
+              <i class="large material-icons">add</i>
+            </a>
+        </div>
+    </main>
+</div>
 <%- include('../includes/end.ejs') %>

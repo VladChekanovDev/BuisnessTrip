@@ -12,7 +12,7 @@
                             <form class="right" action="/admin/chiefs/delete-chief" method="post">
                                 <input type="hidden" name="chiefId" value="<%= chief.id %>">
                                 <input type="hidden" name="userId" value="<%= userId %>">
-                                <button style="z-index: 1000000;" class="btn-floating halfway-fab red btn-large" type="submit"><i class="material-icons">delete</i></button>
+                                <button class="btn-floating halfway-fab red btn-large" type="submit"><i class="material-icons">delete</i></button>
                             </form>
                         </div>
                         <div class="card-content">
@@ -27,8 +27,12 @@
                 </div>
                 <% }; %>
             </div>
-            <a href="/admin/<%= userId %>/chiefs/add-chief" class="btn-floating cyan btn-large waves-effect waves-light"><i class="material-icons">add</i></a>
+            <div class="fixed-action-btn">
+                <a href="/admin/<%= userId %>/chiefs/add-chief" class="btn-floating btn-large red">
+                  <i class="large material-icons">add</i>
+                </a>
+            </div>
     </main>
 </div>
-    <a href="/admin/<%= userId %>">На панель</a>
+<div class="row"></div>
 <%- include('../includes/end.ejs') %>

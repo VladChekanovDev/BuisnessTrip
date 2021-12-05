@@ -51,22 +51,54 @@ app.use((req, res, next) => {
 });
 
 //assoсiations
-Worker.belongsTo(User);
-Admin.belongsTo(User);
-Chief.belongsTo(User);
-User.hasOne(Worker);
-User.hasOne(Admin);
-User.hasOne(Chief);
-Chief.belongsTo(Department);
-Worker.belongsTo(Department);
-Department.hasOne(Chief);
-Department.hasMany(Worker);
-Department.hasMany(BuisnessTrip);
-BuisnessTrip.belongsTo(Department);
-BuisnessTrip.belongsTo(Station);
-Station.hasOne(BuisnessTrip);
-Worker.hasMany(BuisnessTrip);
-BuisnessTrip.belongsTo(Worker);
+Worker.belongsTo(User, {
+    onDelete: 'CASCADE'
+});
+Admin.belongsTo(User, {
+    onDelete: 'CASCADE'
+});
+Chief.belongsTo(User, {
+    onDelete: 'CASCADE'
+});
+User.hasOne(Worker, {
+    onDelete: 'CASCADE'
+});
+User.hasOne(Admin, {
+    onDelete: 'CASCADE'
+});
+User.hasOne(Chief, {
+    onDelete: 'CASCADE'
+});
+Chief.belongsTo(Department, {
+    onDelete: 'CASCADE'
+});
+Worker.belongsTo(Department, {
+    onDelete: 'CASCADE'
+});
+Department.hasOne(Chief, {
+    onDelete: 'SET DEFAULT'
+});
+Department.hasMany(Worker, {
+    onDelete: 'SET DEFAULT'
+});
+Department.hasMany(BuisnessTrip, {
+    onDelete: 'CASCADE'
+});
+BuisnessTrip.belongsTo(Department, {
+    onDelete: 'CASCADE'
+});
+BuisnessTrip.belongsTo(Station, {
+    onDelete: 'CASCADE'
+});
+Station.hasOne(BuisnessTrip, {
+    onDelete: 'CASCADE'
+});
+Worker.hasMany(BuisnessTrip, {
+    onDelete: 'CASCADE'
+});
+BuisnessTrip.belongsTo(Worker, {
+    onDelete: 'CASCADE'
+});
 
 sequelize
     .sync({force: true})
