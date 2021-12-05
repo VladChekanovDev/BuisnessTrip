@@ -42,7 +42,9 @@ const Worker = sequelize.define('worker', {
             return this.lastName + ' ' + this.firstName + ' ' + this.patronymic;
         },
         getInitials() {
-            return this.lastName + ' ' + this.firstName.substr(0,1) + '. ' + this.patronymic.substr(0,1) + '.';
+            if (this.firstName && this.patronymic)
+                return this.lastName + ' ' + this.firstName.substr(0,1) + '. ' + this.patronymic.substr(0,1) + '.';
+            return;
         }
     }
 });

@@ -1,9 +1,13 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs', {panel: 'admin'}) %>
 <div class="container">
-
-    <main>
-        <form action="/admin/chiefs/add-chief" method="post">
+    <main class="row valign-wrapper">
+        <form class="col s6 offset-s3" action="/admin/chiefs/add-chief" method="post">
+            <div class="row"><div class="input-field">
+                <label for="lastName">Фамилия*</label>
+                <input class="validate" type="text" name="lastName" id="lastName" required>
+                <span class="helper-text" data-error="Заполните поле"></span>
+            </div></div>
             <div class="row">
                 <div class="input-field">
                     <label for="firstName">Имя*</label>
@@ -11,11 +15,6 @@
                     <span class="helper-text" data-error="Заполните поле"></span>
                 </div>
             </div>
-            <div class="row"><div class="input-field">
-                <label for="lastName">Фамилия*</label>
-                <input class="validate" type="text" name="lastName" id="lastName" required>
-                <span class="helper-text" data-error="Заполните поле"></span>
-            </div></div>
             <div class="row"><div class="input-field">
                 <label for="patronymic">Отчество*</label>
                 <input class="validate" type="text" name="patronymic" id="patronymic" required>
@@ -37,24 +36,33 @@
                 <span class="helper-text" data-error="Заполните поле"></span>
             </div></div>
             <div class="row"><div class="input-field">
-                <select name="departmentId" id="departmentId">
-                    <option value="" selected disabled>Choose</option>
-                    <option value="1">1</option>
-                    <!-- <% for (let department of departments) {%>
+                <select class="validate" name="departmentId" id="departmentId">
+                    <option value="" disabled selected>Выберите отдел</option>
+                    <% for (let department of departments) {%>
                         <option value="<%= department.id %>"><%= department.name %></option>
-                    <% }; %> -->
+                    <% }; %>
                 </select>
-                <label for="departmentId">Выберите отдел*</label>
+                <label for="departmentId">Отдел*</label>
             </div></div>
             <div class="row"><div class="input-field">
                 <label for="position">Должность*</label>
-                <input type="text" name="position" id="position" required>
+                <input class="validate" type="text" name="position" id="position" required>
                 <span class="helper-text" data-error="Заполните поле"></span>
             </div></div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="imageURL">URL фотографии*</label>
+                    <input class="validate" type="text" name="imageURL" id="imageURL" required>
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
             <input type="hidden" name="userId" value="<%= userId %>">
-            <button type="submit">Зарегистрировать</button>
+            <div class="row">
+                <button class="btn cyan waves-effect waves-light col s4 offset-s4" type="submit"> <i class="material-icons left">add</i>Добавить</button>
+                <a class="btn red waves-effect waves-light right" href="/admin/<%= userId %>/chiefs">Отмена</a>
+            </div>
         </form>
-        <a href="/admin/<%= userId %>/chiefs">Назад</a>
     </main>
 </div>
-<% include('../includes/end.ejs') %>
+
+<%- include('../includes/end.ejs') %>

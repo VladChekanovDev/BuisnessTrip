@@ -1,14 +1,42 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs', {panel: 'admin'}) %>
-<main>
-    <form action="/admin/departments/add-department" method="post">
-        <label for="name">Название отдела*: </label>
-        <input type="text" name="name" id="name" required><br>
-        <label for="adress">Адрес*:</label>
-        <input type="text" name="adress" id="adress" required><br>
-        <input type="hidden" name="userId" value="<%= userId %>">
-        <button type="submit">Зарегистрировать отдел</button>
-    </form>
-    <a href="/admin/<%= userId %>/departments">Назад</a>
-</main>
+<div class="container">
+    <main class="row valign-wrapper">
+        <form class="col s6 offset-s3" action="/admin/departments/add-department" method="post">
+            <div class="row">
+                <div class="input-field">
+                    <label for="name">Название отдела*</label>
+                    <input class="validate" type="text" name="name" id="name" required><br>
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="adress">Адрес*</label>
+                    <input class="validate" type="text" name="adress" id="adress" required><br>
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="description">Описание</label>
+                    <textarea class="materialize-textarea" name="description" id="description" cols="30" rows="10" required></textarea>
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="imageURL">URL фотографии*</label>
+                    <input class="validate" type="text" name="imageURL" id="imageURL" required>
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <input type="hidden" name="userId" value="<%= userId %>">
+            <div class="row">
+                <button type="submit" class="btn col s3 offset-s3">Добавить</button>
+                <a class="btn red col s2 offset-s1" href="/admin/<%= userId %>/departments">Назад</a>
+            </div>
+        </form>
+    </main>
+</div>
 <%- include('../includes/end.ejs') %>

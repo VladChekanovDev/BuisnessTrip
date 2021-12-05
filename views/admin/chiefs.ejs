@@ -1,18 +1,34 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs', {panel: 'admin'}) %>
-    <a href="/admin/<%= userId %>/chiefs/add-chief">Добавить главу отдела</a><br>
-    <% for (let chief of chiefs) {%>
-        <%= chief.lastName %> <br>
-        <%= chief.firstName %> <br>
-        <%= chief.patronymic ? chief.patronymic : '' %><br>
-        <%= chief.department.name %>
-        <form action="/admin/chiefs/delete-chief" method="post">
-            <input type="hidden" name="chiefId" value="<%= chief.id %>">
-            <input type="hidden" name="userId" value="<%= userId %>">
-            <button type="submit">Удалить</button>
-        </form>
-        <a href="/admin/<%= userId%>/chiefs/edit-chief/<%= chief.id %>">Редактировать</a>
-        <hr>
-    <% }; %>
+<div class="container">
+    <main>
+        <div class="row">
+            <% for (let chief of chiefs) {%>
+                <div class="col s6">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="<%= chief.imageURL %>" alt="<%= chief.getInitials %>">    
+                            <span style="font-weight: 600;" class="card-title"><%= chief.getInitials %></span>
+                            <form class="right" action="/admin/chiefs/delete-chief" method="post">
+                                <input type="hidden" name="chiefId" value="<%= chief.id %>">
+                                <input type="hidden" name="userId" value="<%= userId %>">
+                                <button style="z-index: 1000000;" class="btn-floating halfway-fab red btn-large" type="submit"><i class="material-icons">delete</i></button>
+                            </form>
+                        </div>
+                        <div class="card-content">
+                            <p>Фио: <%= chief.getFullName%> <br> Руководитель отдела: <%= chief.department.name %> <br> Должность: <%= chief.position %></p>
+                        </div>
+                        <div class="card-action">
+                            <div class="row">
+                                <a class="col s5 orange-text lighten-1" href="/admin/<%= userId%>/chiefs/edit-chief/<%= chief.id %>">Редактировать</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% }; %>
+            </div>
+            <a href="/admin/<%= userId %>/chiefs/add-chief" class="btn-floating cyan btn-large waves-effect waves-light"><i class="material-icons">add</i></a>
+    </main>
+</div>
     <a href="/admin/<%= userId %>">На панель</a>
 <%- include('../includes/end.ejs') %>

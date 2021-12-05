@@ -21,11 +21,18 @@ const Chief = sequelize.define('chief', {
     position: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    imageURL: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 }, {
     getterMethods: {
         getInitials() {
             return this.lastName + ' ' + this.firstName.substr(0,1) + '. ' + this.patronymic.substr(0,1) + '.';
+        },
+        getFullName() {
+            return this.lastName + ' ' + this.firstName + ' ' + this.patronymic;
         }
     }
 });

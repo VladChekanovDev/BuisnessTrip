@@ -1,23 +1,58 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs', {panel: 'admin'}) %>
-<main>
-    <form action="/admin/chiefs/edit-chief" method="post">
-        <label for="firstName">Имя*:</label>
-        <input type="text" name="firstName" id="firstName" value="<%= chief.firstName %>" required><br>
-        <label for="lastName">Фамилия*:</label>
-        <input type="text" name="lastName" id="lastName" value="<%= chief.lastName %>" required><br>
-        <label for="patronymic">Отчество:</label>
-        <input type="text" name="patronymic" id="login" value="<%= chief.patronymic %>" required><br>
-        <label for="departmenId">Отдел*:</label>
-        <select name="departmentId" id="department">
-            <% for (let department of departments) {%>
-                <option value="<%= department.id %>"><%= department.name %></option>
-            <% }; %>
-        </select><br>
+<div class="container row valign-wrapper">
+    <form class="col s6 offset-s3" action="/admin/chiefs/edit-chief" method="post">
+        <div class="row">
+            <div class="input-field">
+                <label for="firstName">Имя*:</label>
+                <input class="validate" type="text" name="firstName" id="firstName" value="<%= chief.firstName %>" required>
+                <span class="helper-text" data-error="Заполните поле"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field">
+                <label for="lastName">Фамилия*:</label>
+                <input class="validate" type="text" name="lastName" id="lastName" value="<%= chief.lastName %>" required><br>
+                <span class="helper-text" data-error="Заполните поле"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field">
+                <label for="patronymic">Отчество:</label>
+                <input class="validate" type="text" name="patronymic" id="login" value="<%= chief.patronymic %>" required><br>
+                <span class="helper-text" data-error="Заполните поле"></span>
+            </div>
+        </div>
+        <div class="row"><div class="input-field">
+            <select class="validate" name="departmentId" id="departmentId">
+                <option value="" disabled selected>Выберите отдел</option>
+                <% for (let department of departments) {%>
+                    <option value="<%= department.id %>" <%= (department.id == chief.departmentId) ? 'selected' : '' %>><%= department.name %></option>
+                <% }; %>
+            </select>
+            <label for="departmentId">Отдел*</label>
+        </div></div>
+        <div class="row">
+            <div class="input-field">
+                <label for="imageURL">URL фотографии* :</label>
+                <input class="validate" type="text" class="validate" value="<%= chief.imageURL %>">
+                <span class="helpet-text" data-error="Заполните поле"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field">
+                <label for="position">Должность</label>
+                <input type="text" name="position" id="position" value="<%= chief.position %>" class="validate">
+            </div>
+        </div>
         <input type="hidden" name="userId" value="<%= userId %>">
         <input type="hidden" name="chiefId" value="<%= chief.id %>">
-        <button type="submit">Редактировать</button>
+        <div class="row">
+            <button class="btn cyan waves-effect waves-light col s5 offset-s4" type="submit"> <i class="material-icons left">edit</i>Редактировать</button>
+            <a class="btn red waves-effect waves-light right" href="/admin/<%= userId %>/chiefs">Назад</a>
+        </div>
     </form>
-    <a href="/admin/<%= userId %>/chiefs">Назад</a>
+</div>
+<main>
 </main>
-<% include('../includes/end.ejs') %>
+<%- include('../includes/end.ejs') %>

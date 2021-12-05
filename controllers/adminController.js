@@ -36,9 +36,13 @@ export const postAddDepartment = async(req, res, next) => {
     const name = req.body.name;
     const adress = req.body.adress;
     const userId = req.body.userId;
+    const description = req.body.description;
+    const imageURL = req.body.imageURL;
     await Department.create({
         name: name,
-        adress: adress
+        adress: adress,
+        imageURL: imageURL,
+        description: description
     });
     res.redirect(`/admin/${userId}/departments`);
 };
@@ -66,7 +70,9 @@ export const postEditDepartment = async(req, res) => {
     const userId = req.body.userId;
     const updatedDepartment = {
         name: req.body.name,
-        adress: req.body.adress
+        adress: req.body.adress,
+        description: req.body.description,
+        imageURL: req.body.imageURL
     };
     await Department.update(updatedDepartment, {
         where: {
@@ -109,6 +115,7 @@ export const postAddChief = async(req, res, next) => {
         const password = md5(req.body.password);
         const departmentId = req.body.departmentId;
         const position = req.body.position;
+        const imageURL = req.body.imageURL;
         await User.registrateChief({
             login: login,
             password: password,
@@ -117,10 +124,12 @@ export const postAddChief = async(req, res, next) => {
             firstName: firstName,
             lastName: lastName,
             patronymic: patronymic,
-            position: position
+            position: position,
+            imageURL: imageURL
         }, departmentId);
         res.redirect(`/admin/${userId}/chiefs`);   
     } catch(e) {
+        console.log(e);
         res.redirect('/error/500');
     }
 };
@@ -153,7 +162,8 @@ export const postEditChief = async(req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         patronymic: req.body.patronymic,
-        departmentId: req.body.departmentId
+        departmentId: req.body.departmentId,
+        position: req.body.position
     };
     await Chief.update(updatedChief, {
         where: {

@@ -16,6 +16,14 @@ const Department = sequelize.define('department', {
     adress: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    description: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    imageURL: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 });
 

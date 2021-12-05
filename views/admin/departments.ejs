@@ -1,19 +1,32 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs', {panel: 'admin'}) %>
-<main>
-    <a href="/admin/<%= userId %>/departments/add-department">Добавить отдел</a><br>
-    Отделы: <br>
-    <% for (let department of departments) {%>
-        <%= department.name %> <br>
-        <%= department.adress %> <br>
-        <form action="/admin/departments/delete-department" method="post">
-            <input type="hidden" name="userId" value="<%= userId %>">
-            <input type="hidden" name="departmentId" value="<%= department.id %>">
-            <button type="submit">Удалить</button>
-        </form>
-        <a href="/admin/<%= userId %>/departments/edit-department/<%= department.id %>">Редактировать</a>
-        <hr>
-    <% } %>
-    <a href="/admin/<%= userId %>">На панель</a>
-</main>
+<div class="container">
+    <main>
+        <div class="row">
+            <% for (let department of departments) {%>
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                      <img class="activator" src="<%= department.imageURL %>" alt="<%= department.name %>">
+                    </div>
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4"><%= department.name %><i class="material-icons right">more_vert</i></span>
+                      <div class="row">
+                        <a class="col s4 btn white orange-text lighten-1 offset-s5" href="/admin/<%= userId %>/departments/edit-department/<%= department.id %>">Редактировать</a>
+                        <form class="col s1 offset-s20" action="/admin/departments/delete-department" method="post">
+                            <input type="hidden" name="userId" value="<%= userId %>">
+                            <input type="hidden" name="departmentId" value="<%= department.id %>">
+                            <button class="btn red" type="submit"><i class="material-icons">delete</i></button>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="card-reveal">
+                      <span class="card-title grey-text text-darken-4"><%= department.name %><i class="material-icons right">close</i></span>
+                      <p><%= department.description %> <br> Находится по адресу: <%= department.adress %></p>
+                    </div>
+                  </div>
+            <% }; %>
+        </div>
+        <a href="/admin/<%= userId %>/departments/add-department" class="btn-floating cyan btn-large"><i class="material-icons">add</i></a>
+    </main>
+</div>
 <%- include('../includes/end.ejs') %>
