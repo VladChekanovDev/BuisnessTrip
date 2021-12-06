@@ -16,6 +16,14 @@ const Station = sequelize.define('station', {
     adress: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    description: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    imageURL: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 }, {
     getterMethods: {

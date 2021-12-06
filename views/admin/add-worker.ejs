@@ -94,20 +94,11 @@
             </div>
             <div class="row">
                 <input type="hidden" name="userId" value="<%= userId %>">
-                <button type="submit">Зарегистрировать рабочего</button>
+                <input type="hidden" name="workerId" value="<%= worker.id %>">
+                <button class="btn cyan waves-effect waves-light col s4 offset-s4" type="submit">Зарегистрировать рабочего</button>
+                <a href="/admin/<%= userId %>/workers" class="btn red col offset-s1 waves-effect waves-light">Отмена</a>
             </div>
         </form>
     </main>
 </div>
-
-<main>
-    <form action="/admin/workers/add-worker" method="post">
-        
-        
-        
-        
-        
-    </form>
-    <a href="/admin/<%= userId %>/workers">Назад</a>
-</main>
 <%- include('../includes/end.ejs') %>

@@ -1,33 +1,103 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs', {panel: 'admin'}) %>
-<main>
-    <form action="/admin/workers/edit-worker" method="post">
-        <label for="lastName">Фамилия*:</label>
-        <input type="text" name="lastName" id="lastName" value="<%= worker.lastName %>" required><br>
-        <label for="firstName">Имя*:</label>
-        <input type="text" name="firstName" id="lastName" value="<%= worker.firstName %>" required><br>
-        <label for="patronymic">Отчество:</label>
-        <input type="text" name="patronymic" id="patronymic" value="<%= worker.patronymic ? worker.patronymic : '' %>"><br>
-        <label for="dateOfBirth">Дата рождения*:</label>
-        <input type="date" name="dateOfBirth" id="dateOfBirth" value="<%= worker.dateOfBirth %>" required><br>
-        <label for="dateOfHiring">Дата найма*:</label>
-        <input type="date" name="dateOfHiring" id="dateOfHiring" value="<%= worker.dateOfHiring %>" required><br>
-        <label for="departmentId">Отдел*:</label>
-        <select name="departmentId" id="departmentId">
-            <% for (let department of departments) {%>
-                <option value="<%= department.id %>" <%= (department.id === worker.departmentId) ? 'selected' : ''  %> ><%= department.name %></option>
-            <% }; %>
-        </select><br>
-        <label for="position">Должность*:</label>
-        <input type="text" name="position" id="position" value="<%= worker.position %>" required><br>
-        <label for="salary">Зарплата*:</label>
-        <input type="number" name="salary" id="salary" step="1" value="<%= worker.salary %>" required><br>
-        <label for="imageURL">URL картинки:</label>
-        <input type="text" name="imageURL" id="imageURL" value="<%= worker.imageURL %>"><br>
-        <input type="hidden" name="userId" value="<%= userId %>">
-        <input type="hidden" name="workerId" value="<%= worker.id %>">
-        <button type="submit">Редактировать</button>
-    </form>
-    <a href="/admin/<%= userId %>/workers">Назад</a>
-</main>
+
+<div class="container">
+    <main class="valign-wrapper row">
+        <form action="/admin/workers/edit-worker" method="post" class="col s6 offset-s3">
+            <div class="row">
+                <div class="input-field">
+                    <label for="lastName">Фамилия*</label>
+                    <input class="validate" type="text" name="lastName" id="lastName" value="<%=worker.lastName%>" required><br>
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="firstName">Имя*</label>
+                    <input class="validate" type="text" name="firstName" id="lastName" value="<%= worker.firstName %>" required><br>
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="patronymic">Отчество:</label>
+                    <input class="validate" type="text" name="patronymic" value="<%= worker.patronymic %>" id="patronymic"><br>
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="dateOfBirth">Дата рождения*:</label>
+                    <input class="datepicker" type="text" name="dateOfBirth" id="dateOfBirth" value="<%= worker.dateOfBirth %>" required><br>            
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="dateOfHiring">Дата найма*</label>
+                    <input class="datepicker" type="text" name="dateOfHiring" id="dateOfHiring" value="<%= worker.dateOfHiring %>" required><br>            
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="dateOfDismissal">Дата увольнения</label>
+                    <input class="datepicker" type="text" name="dateOfDismissal" id="dateOfDismissal" value="<%= worker.dateOfDismissal %>"><br>            
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <select name="departmentId" id="departmentId">
+                        <% for (let department of departments) {%>
+                            <option value="<%= department.id %>" <%= (department.id == worker.departmentId) ? 'selected' : '' %>><%= department.name %></option>
+                        <% }; %>
+                    </select><br>            
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="position">Должность*:</label>
+                    <input type="text" name="position" id="position" value="<%= worker.position %>"><br>   
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="salary">Зарплата*:</label>
+                    <input type="number" name="salary" id="salary" step="1" value="<%= worker.salary %>" required><br>  
+                    <span class="helper-text" data-error="Заполните поле"></span>          
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="imageURL">URL картинки:</label>
+                    <input type="text" name="imageURL" id="imageURL" value="<%= worker.imageURL %>"><br>
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="login">Логин*</label>
+                    <input type="text" name="login" id="login" value="<%= user.login %>" class="validate" rerquired>
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="password">Пароль*</label>
+                    <input class="validate" type="password" name="password" id="password" required>
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row">
+                <input type="hidden" name="workerId" value="<%= worker.id %>">
+                <input type="hidden" name="userId" value="<%= userId %>">
+                <button class="btn cyan waves-effect waves-light col s4 offset-s4" type="submit">Редактировать</button>
+                <a href="/admin/<%= userId %>/workers" class="btn red col offset-s1 waves-effect waves-light">Отмена</a>
+            </div>
+        </form>
+    </main>
+</div>
 <%- include('../includes/end.ejs') %>

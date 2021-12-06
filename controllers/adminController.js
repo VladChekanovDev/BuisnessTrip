@@ -243,35 +243,43 @@ export const getEditWorker = async(req, res) => {
     const userId = req.params.userId;
     const workerId = req.params.workerId;
     const worker = await Worker.findByPk(workerId);
+    const workerUser = await worker.getUser();
     const departments = await Department.findAll();
+    const user = await User.findByPk(userId);
     res.render('admin/edit-worker', {
         pageTitle: 'Редактирование рабочего',
         worker: worker,
         userId: userId,
-        departments: departments
+        departments: departments,
+        user: workerUser
     });
 };
 
 export const postEditWorker = async(req, res) => {
-    const userId = req.body.userId;
-    const workerId = req.body.workerId;
-    const updatedWorker = {
-        lastName: req.body.lastName,
-        firstName: req.body.firstName,
-        patronymic: req.body.patronymic,
-        dateOfBirth: req.body.dateOfBirth,
-        dateOfHiring: req.body.dateOfHiring,
-        departmentId: req.body.departmentId,
-        position: req.body.position,
-        salary: req.body.salary,
-        imageURL: req.body.imageURL
-    };
-    await Worker.update(updatedWorker, {
-        where: {
-            id: workerId
-        }
-    });
-    res.redirect(`/admin/${userId}/workers`);
+    try {
+        const userId = req.body.userId;
+        const workerId = req.body.workerId;
+        const updatedWorker = {
+            lastName: req.body.lastName,
+            firstName: req.body.firstName,
+            patronymic: req.body.patronymic,
+            dateOfBirth: req.body.dateOfBirth,
+            dateOfHiring: req.body.dateOfHiring,
+            departmentId: req.body.departmentId,
+            position: req.body.position,
+            salary: req.body.salary,
+            imageURL: req.body.imageURL
+        };
+        await Worker.update(updatedWorker, {
+            where: {
+                id: workerId
+            }
+        });
+        res.redirect(`/admin/${userId}/workers`);
+    } catch(e) {
+        console.log(e);
+        res.redirect('/error/500');
+    }
 };
 
 export const postFireWorker = async(req, res) => {
@@ -312,7 +320,9 @@ export const postAddStation = async(req, res) => {
         const userId = req.body.userId
         const newStation = {
             name: req.body.name,
-            adress: req.body.adress
+            adress: req.body.adress,
+            imageURL: req.body.imageURL,
+            description: req.body.description
         };
         await Station.create(newStation);
         res.redirect(`/admin/${userId}/stations`);
@@ -357,9 +367,13 @@ export const postEditStation = async(req, res) => {
     try {
         const userId = req.body.userId;
         const stationId = req.body.stationId;
+        const imageURL = req.body.imageURL;
+        const description = req.body.description
         const updatedStation = {
             name: req.body.name,
-            adress: req.body.adress
+            adress: req.body.adress,
+            imageURL: imageURL,
+            description: description
         };
         Station.update(updatedStation, {
             where: {
