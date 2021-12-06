@@ -3,7 +3,6 @@
         <div class="nav-wrapper cyan">
             <ul class="row center hide-on-med-and-down">
                 <% if (panel == 'main') {%>
-                
                 <li class="col s2 offset-s4" ><a href="/main"><i class="material-icons left">account_circle</i>Авторизация</a></li>
                 <li class="col s2" ><a href="#"><i class="material-icons left">account_balance</i>О программе</a></li>
                 <% } else if (panel == 'admin') {%>
@@ -17,9 +16,11 @@
                     <li class="col s2"><a href="/chief/<%= userId %>/workers"> <i class="material-icons left">people_outline</i> Рабочие</a></li>
                     <li class="col s2"><a href="/chief/<%= userId %>/buisness-trips"> <i class="material-icons left">business_center</i> Командировки</a></li>
                     <li class="col s2"><a href="/chief/<%= userId %>/stations"> <i class="material-icons left">airport_shuttle</i> Точки назначения</a></li>
+                    <li class="col s2"><a href="/chief/<%= userId %>"><i class="material-icons">home</i></a></li>
                 <% } else if (panel == 'worker') {%>
                     <li class="col s2 offset-s3"><a href="/main"><i class="material-icons">exit_to_app</i></a></li>
                     <li class="col s2"><a href="/worker/<%= userId %>/buisness-trips">Мои командировки</a></li>
+                    <li class="col s2"><a href="/worker/<%= userId %>"><i class="material-icons">home</i></a></li>
                 <% }; %>
             </ul>
         </div>

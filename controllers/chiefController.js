@@ -163,7 +163,9 @@ export const getBuinessTrips = async(req, res) => {
     const user = await User.findByPk(userId);
     const chief = await user.getChief();
     const department = await chief.getDepartment();
-    const buisnessTrips = await BuisnessTrip.findAll({
+    const sort = req.query.sort;
+    const filter = req.query.filter;
+    let buisnessTrips = await BuisnessTrip.findAll({
         where: {
             departmentId: department.id
         }
@@ -172,13 +174,75 @@ export const getBuinessTrips = async(req, res) => {
         buisnessTrip.station = await buisnessTrip.getStation();
         buisnessTrip.worker = await buisnessTrip.getWorker();
     }
-
+    switch(sort) {
+        case 'name': 
+            buisnessTrips.sort((a,b) => {
+                if (a.station.name > b.station.name) return -1;
+                if (a.station.name < b.station.name) return 1;
+                return 0;
+            });
+            break;
+        case 'status': {
+            buisnessTrips.sort((a,b) => {
+                if (a.status > b.status) return -1;
+                if (a.status < b.status) return 1;
+                return 0;
+            })
+            break;
+        }
+        case 'dateOfBegin': {
+            buisnessTrips.sort((a,b) => {
+                if (a.dateOfBegin > b.dateOfBegin) return 1;
+                if (a.dateOfBegin < b.dateOfBegin) return -1;
+                return 0;
+            })
+            break;
+        }
+    }
+    console.log(filter);
+    switch(filter) {
+        case 'wait': 
+            buisnessTrips = buisnessTrips.filter(t => t.status == 'Ожидание подтверждения работником');
+            break;
+        case 'accepted': 
+            buisnessTrips = buisnessTrips.filter(t => t.status == 'Принято');
+            break;
+        case 'canceled': 
+            buisnessTrips = buisnessTrips.filter(t => t.status == 'Отказано');
+            break;
+        case 'success': 
+            buisnessTrips = buisnessTrips.filter(t => t.status == 'Завершено успешно');
+            break;
+    } 
     res.render('chief/buisness-trips', {
         pageTitle: 'Все командировки',
         buisnessTrips: buisnessTrips,
         userId: userId
     });
 };
+
+export const postFindTrips = async(req, res) => {
+    const userId = req.body.userId;
+    const user = await User.findByPk(userId);
+    const chief = await user.getChief();
+    const department = await chief.getDepartment();
+    const find = req.body.find;
+    let buisnessTrips = await BuisnessTrip.findAll({
+        where: {
+            departmentId: department.id
+        }
+    });
+    for (let buisnessTrip of buisnessTrips) {
+        buisnessTrip.station = await buisnessTrip.getStation();
+        buisnessTrip.worker = await buisnessTrip.getWorker();
+    }
+    buisnessTrips = buisnessTrips.filter(t => t.station.name.includes(find) || t.status.includes(find) || t.dateOfBegin.includes(find) || t.worker.getFullName.includes(find));
+    res.render('chief/buisness-trips', {
+        pageTitle: 'Все командировки',
+        buisnessTrips: buisnessTrips,
+        userId: userId
+    });
+}
 
 export const getAddTrip = async(req, res) => {
     const userId = req.params.userId;

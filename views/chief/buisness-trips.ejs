@@ -4,8 +4,30 @@
 <%- include('../includes/header.ejs', {panel: 'chief'}) %>
 <div class="container">
     <main>
+        <div class="row"></div>
         <div class="row">
-            
+            <ul id="dropdown2" class="dropdown-content col">
+                <li><a href="/chief/<%= userId %>/buisness-trips?sort=name">Названию</a></li>
+                <li><a href="/chief/<%= userId %>/buisness-trips?sort=status">Статусу</a></li>
+                <li><a href="/chief/<%= userId %>/buisness-trips?sort=dateOfBegin">Дате начала</a></li>
+            </ul>
+            <a class="btn cyan dropdown-trigger" href="#!" data-target="dropdown2">Отсортировать по<i class="material-icons right">arrow_drop_down</i></a>
+            <ul id="dropdown1" class="dropdown-content col">
+                <li><a href="/chief/<%= userId %>/buisness-trips?filter=wait">Ожидание подтверждения</a></li>
+                <li><a href="/chief/<%= userId %>/buisness-trips?filter=accepted">Принято</a></li>
+                <li><a href="/chief/<%= userId %>/buisness-trips?filter=canceled">Отказано</a></li>
+                <li><a href="/chief/<%= userId %>/buisness-trips?filter=success">Завершено</a></li>
+            </ul>
+            <a class="btn dropdown-trigger cyan" href="#!" data-target="dropdown1">Отфильтровать по статусу<i class="material-icons right">arrow_drop_down</i></a>
+            <form class="col s3 right" action="/chief/buisness-trips/find" method="post">
+                <div class="input-field">
+                    <input type="hidden" name="userId" value="<%= userId %>">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" name="find" id="find">
+                </div>
+            </form>
+        </div>
+        <div class="row">
             <% for (let buisnessTrip of buisnessTrips) {%>
             <div class="card large col s5">
                 <div class="card-image waves-effect waves-block waves-light">

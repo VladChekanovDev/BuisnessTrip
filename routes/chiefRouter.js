@@ -16,6 +16,8 @@ chiefRouter.post('/workers/fire-worker', chiefController.postFireWorker);
 
 chiefRouter.get('/:userId/buisness-trips', chiefController.getBuinessTrips);
 
+chiefRouter.post('/buisness-trips/find', chiefController.postFindTrips);
+
 chiefRouter.get('/:userId/buisness-trips/add-trip', chiefController.getAddTrip);
 
 chiefRouter.post('/buisness-trips/add-trip', chiefController.postAddTrip);
