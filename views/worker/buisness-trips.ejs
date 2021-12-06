@@ -1,26 +1,84 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs', {panel: 'worker'}) %>
-<main>
-    <h1>Все командировки:</h1>
-    <% for (let buisnessTrip of buisnessTrips) {%>
-        <h2><%= buisnessTrip.id %></h2>
-        <h2><%= buisnessTrip.status %></h2>
-        <% if (buisnessTrip.status == 'Ожидание подтверждения работником') {%>
-        <form action="/worker/buisness-trips/accept-trip" method="post">
-            <input type="hidden" name="buisnessTripId" value="<%= buisnessTrip.id %>">
-            <input type="hidden" name="userId" value="<%= userId %>">
-            <button type="submit">Принять</button>
-        </form>
-        <form action="/worker/buisness-trips/refuse-trip" method="post">
-            <input type="hidden" name="buisnessTripId" value="<%= buisnessTrip.id %>">
-            <input type="hidden" name="userId" value="<%= userId %>">
-            <button type="submit">Отказаться</button>
-        </form>
-        <% }; %>
-        <% if (buisnessTrip.status == 'Принято') {%>
-            <a href="/worker/<%= userId %>/buisness-trips/get-certificate/<%= buisnessTrip.id %>">Получить командировочное удостоверение</a><br>
-        <% }; %>
-    <% }; %>
-    <a href="/worker/<%= userId %>">Назад</a>
-</main>
+<div class="container">
+    <main>
+        <div class="row">
+            <% for (let buisnessTrip of buisnessTrips) {%>
+            <div class="card large col s5">
+                <div class="card-image waves-effect waves-block waves-light">
+                  <img class="activator" src="<%= buisnessTrip.station.imageURL %>">
+                </div>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4"><%= buisnessTrip.station.name %><i class="material-icons right">more_vert</i></span>
+                  <p class="row">
+                    <div class="btn <%= (buisnessTrip.status == 'Откланено') ? 'red' : '' %> <%= (buisnessTrip.status == 'Завершено успешно') ? 'green' : '' %> <%= (buisnessTrip.status != 'Откланено' && buisnessTrip.status != 'Завершено успешно') ? 'orange' : '' %> white-text lighten-1 col s12"><%= buisnessTrip.status %></div>
+                  </p>
+                </div>
+                <div class="card-action">
+                    <% if (buisnessTrip.status == 'Ожидание подтверждения работником') {%>
+                    <div class="row">
+                        <form action="/worker/buisness-trips/accept-trip" method="post">
+                            <input type="hidden" name="userId" value="<%= userId %>">
+                            <input type="hidden" name="buisnessTripId" value="<%= buisnessTrip.id %>">
+                            <button type="submit" class="btn green waves-effect col s5">Принять</button>
+                        </form>
+                        <form action="/worker/buisness-trips/refuse-trip" method="post">
+                            <input type="hidden" name="userId" value="<%= userId %>">
+                            <input type="hidden" name="buisnessTripId" value="<%= buisnessTrip.id %>">
+                            <button type="submit" class="btn red waves-effect col s5 offset-s2">Отказаться</button>
+                        </form>
+                    </div>
+                    <% }; %>
+                    <% if (buisnessTrip.status == 'Принято') {%>
+                        <div class="row">
+                            <a href="/worker/<%= userId %>/buisness-trips/get-certificate/<%= buisnessTrip.id %>" class="btn white orange-text lighten-1 col s5">Удостоверение</a>
+                            <form action="/worker/buisness-trips/go-to-trip" method="post">
+                                <input type="hidden" name="userId" value="<%= userId %>">
+                                <input type="hidden" name="buisnessTripId" value="<%= buisnessTrip.id %>">
+                                <button class="btn green col s5 offset-s1">Отправиться</button>
+                            </form>
+                        </div>
+                    <% }; %>
+                    <% if (buisnessTrip.status == 'Сотрудник отправился') {%>
+                        <div class="row">
+                            <form action="/worker/buisness-trips/in-trip" method="post">
+                                <input type="hidden" name="userId" value="<%= userId %>">
+                                <input type="hidden" name="buisnessTripId" value="<%= buisnessTrip.id %>">
+                                <button class="btn green col s12">Сообщить о прибытии</button>
+                            </form>
+                        </div>
+                    <% }; %>
+                    <% if (buisnessTrip.status == 'Сотрудник прибыл') {%>
+                        <div class="row">
+                            <form action="/worker/buisness-trips/go-back" method="post">
+                                <input type="hidden" name="userId" value="<%= userId %>">
+                                <input type="hidden" name="buisnessTripId" value="<%= buisnessTrip.id %>">
+                                <button class="btn green col s12">Отправиться обратно</button>
+                            </form>
+                        </div>
+                    <% }; %>
+                    <% if (buisnessTrip.status == 'Сотрудник возвращается') {%>
+                        <div class="row">
+                            <form action="/worker/buisness-trips/came-back" method="post">
+                                <input type="hidden" name="userId" value="<%= userId %>">
+                                <input type="hidden" name="buisnessTripId" value="<%= buisnessTrip.id %>">
+                                <button class="btn green col s12">Сообщить о возвращении</button>
+                            </form>
+                        </div>
+                    <% }; %>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4"><%= buisnessTrip.station.name %><i class="material-icons right">close</i></span>
+                  <p>Цель: <%= buisnessTrip.goal %> <br> Суточные: <%= buisnessTrip.cost %> руб <br> Адрес: <%= buisnessTrip.station.adress %></p>
+                </div>
+            </div>
+            <% }; %>
+        </div>
+        <div class="fixed-action-btn">
+            <a class="btn-floating waves-effect btn-large red" href="/chief/<%= userId %>/buisness-trips/add-trip">
+              <i class="large material-icons">add</i>
+            </a>
+        </div>
+    </main>
+</div>
 <%- include('../includes/end.ejs') %>

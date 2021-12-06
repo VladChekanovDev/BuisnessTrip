@@ -1,33 +1,69 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs', {panel: 'chief'}) %>
-<main>
-    <form action="/chief/buisness-trips/add-trip" method="post">
-        <label for="dateOfBegin">Дата начала*:</label>
-        <input type="date" name="dateOfBegin" id="dateOfBegin" required><br>
-        <label for="duration">Продолжительность командировки*:</label>
-        <input type="number" name="duration" id="duration" min="1" step="1" required><br>
-        <label for="goal">Цель командировки*:</label>
-        <input type="text" name="goal" id="goal" required> <br>
-        <label for="orderNumber">Номер приказа*:</label>
-        <input type="text" name="orderNumber" id="orderNumber" required><br>
-        <label for="orderDate">Дата приказа*:</label>
-        <input type="date" name="orderDate" id="orderDate"><br>
-        <label for="workerId">Рабочий*:</label>
-        <select name="workerId" id="workerId">
-            <% for (let worker of workers) {%>
-                <option value="<%= worker.id %>"><%= worker.getFullName %></option>
-            <% }; %>
-        </select><br>
-        <select name="stationId" id="stationId">
-            <% for (let station of stations) {%>
-                <option value="<%= station.id %>"><%= station.name %></option>
-            <% }; %>
-        </select><br>
-        <label for="cost">Стоимость*:</label>
-        <input type="number" name="cost" id="cost" min="1" step="1"><br>
-        <input type="hidden" name="userId" value="<%= userId %>">
-        <button type="submit">Назначить командировку</button>
-    </form>
-    <a href="/chief/<%= userId %>/buisness-trips">Назад</a>
-</main>
-<% include('../includes/end.ejs') %>
+<div class="container">
+    <main>
+        <form action="/chief/buisness-trips/add-trip" method="post">
+            <div class="row">
+                <div class="input-field">
+                    <label for="dateOfBegin">Дата начала*</label>
+                    <input class="datepicker" type="text" name="dateOfBegin" id="dateOfBegin" required><br>
+                    <span class="helper-text" data-error="Заполните поле"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="duration">Продолжительность командировки*:</label>
+                    <input type="number" name="duration" id="duration" min="1" step="1" required><br>            
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="goal">Цель командировки*:</label>
+                    <input type="text" name="goal" id="goal" required> <br>            
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="orderNumber">Номер приказа*:</label>
+                    <input type="text" name="orderNumber" id="orderNumber" required><br>            
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="orderDate">Дата приказа*:</label>
+                    <input class="datepicker" type="text" name="orderDate" id="orderDate"><br>            
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <select name="workerId" id="workerId">
+                        <% for (let worker of workers) {%>
+                            <option value="<%= worker.id %>"><%= worker.getFullName %></option>
+                        <% }; %>
+                    </select><br>            
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <select name="stationId" id="stationId">
+                        <% for (let station of stations) {%>
+                            <option value="<%= station.id %>"><%= station.name %></option>
+                        <% }; %>
+                    </select><br>            
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <label for="cost">Суточные*</label>
+                    <input type="number" name="cost" id="cost" min="1" step="1"><br>        
+                </div>
+            </div>
+            <input type="hidden" name="userId" value="<%= userId %>">
+            <div class="row">
+                <button class="btn cyan waves-effect col s4 offset-s4" type="submit">Назначить командировку</button>
+                <a class="btn red col s2 offset-s2" href="/chief/<%= userId %>/buisness-trips">Назад</a>
+            </div>
+        </form>
+    </main>
+</div>
+<%- include('../includes/end.ejs') %>

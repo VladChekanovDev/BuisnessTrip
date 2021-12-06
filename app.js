@@ -101,47 +101,47 @@ BuisnessTrip.belongsTo(Worker, {
 });
 
 sequelize
-    .sync({force: true})
-    // .sync()
+    // .sync({force: true})
+    .sync()
     .then(async() => {
-        const user = await User.create({
-            login: 'admin',
-            password: md5('admin'),
-            userType: 'admin'
-        });
-        const admin = await Admin.create();
-        await user.setAdmin(admin);
-        const department = await Department.create({
-            name: 'Отдел автоматизации и информатизации',
-            adress: 'г. Гродно, ГГПК',
-            description: 'Занимается разработкой ПО для ГГПК',
-            imageURL: 'https://triniti-grodno.by/assets/images/1601911036.jpg'
-        });
-        await User.registrateChief({
-            login: 'chief',
-            password: md5('chief'),
-            userType: 'chief'
-        }, {
-            firstName: 'Владислав',
-            lastName: 'Чеканов',
-            patronymic: 'Дмитриевич',
-            position: 'Гланвный инженер',
-            imageURL: 'https://sun9-29.userapi.com/impg/XDKMicfkhCn6Usw3HKKcUZfm7zui5PAHyAHTug/sdLz5LscY8A.jpg?size=1280x857&quality=96&sign=969fc8ffb99db4027cee678a9499ea29&type=album'
-        }, department.id);
-        await User.registrateWorker({
-            login: 'worker',
-            password: md5('worker'),
-            userType: 'worker'
-        }, {
-            lastName: 'Скобель',
-            firstName: 'Никита',
-            patronymic: 'Сергеевич',
-            dateOfBirth: '2002-09-26',
-            dateOfHiring: '2021-09-26',
-            salary: '1',
-            imageURL: 'https://sun9-84.userapi.com/impg/pgtKPg_RaQpaKd63gAxLjO4gaDIToqjoXRHypw/zCapeCdmRds.jpg?size=2560x1714&quality=96&sign=0601e7640c7f76124e55ed0a9ec1cc12&type=album',
-            position: 'Чернорабочий'
-        }, department.id);
+        // const user = await User.create({
+        //     login: 'admin',
+        //     password: md5('admin'),
+        //     userType: 'admin'
+        // });
+        // const admin = await Admin.create();
+        // await user.setAdmin(admin);
+        // const department = await Department.create({
+        //     name: 'Отдел автоматизации и информатизации',
+        //     adress: 'г. Гродно, ГГПК',
+        //     description: 'Занимается разработкой ПО для ГГПК',
+        //     imageURL: 'https://triniti-grodno.by/assets/images/1601911036.jpg'
+        // });
+        // await User.registrateChief({
+        //     login: 'chief',
+        //     password: md5('chief'),
+        //     userType: 'chief'
+        // }, {
+        //     firstName: 'Владислав',
+        //     lastName: 'Чеканов',
+        //     patronymic: 'Дмитриевич',
+        //     position: 'Главный инженер',
+        //     imageURL: 'https://sun9-29.userapi.com/impg/XDKMicfkhCn6Usw3HKKcUZfm7zui5PAHyAHTug/sdLz5LscY8A.jpg?size=1280x857&quality=96&sign=969fc8ffb99db4027cee678a9499ea29&type=album'
+        // }, department.id);
+        // await User.registrateWorker({
+        //     login: 'worker',
+        //     password: md5('worker'),
+        //     userType: 'worker'
+        // }, {
+        //     lastName: 'Скобель',
+        //     firstName: 'Никита',
+        //     patronymic: 'Сергеевич',
+        //     dateOfBirth: '2002-09-26',
+        //     dateOfHiring: '2021-09-26',
+        //     salary: '1',
+        //     imageURL: 'https://sun9-84.userapi.com/impg/pgtKPg_RaQpaKd63gAxLjO4gaDIToqjoXRHypw/zCapeCdmRds.jpg?size=2560x1714&quality=96&sign=0601e7640c7f76124e55ed0a9ec1cc12&type=album',
+        //     position: 'Чернорабочий'
+        // }, department.id);
         app.listen(3000);
     })
     .catch(err => console.log(err));

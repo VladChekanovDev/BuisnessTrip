@@ -7,6 +7,7 @@ export const getWorker = async(req, res, next) => {
     const userId = req.params.userId;
     const user = await User.findByPk(userId);
     const worker = await user.getWorker();
+    worker.department = await worker.getDepartment();
     res.render('worker/worker', {
         pageTitle: 'Панель рабочего',
         userId: userId,
@@ -19,6 +20,9 @@ export const getTrips = async(req, res) => {
     const user = await User.findByPk(userId);
     const worker = await user.getWorker();
     const buisnessTrips = await worker.getBuisnessTrips();
+    for (let buisnessTrip of buisnessTrips) {
+        buisnessTrip.station = await buisnessTrip.getStation();
+    }
     res.render('worker/buisness-trips', {
         pageTitle: 'Мои командировки',
         userId: userId,
@@ -44,6 +48,58 @@ export const postRefuseTrip = async(req, res) => {
     const buisnessTripId = req.body.buisnessTripId;
     await BuisnessTrip.update({
         status: 'Откланено'
+    }, {
+        where: {
+            id: buisnessTripId
+        }
+    });
+    res.redirect(`/worker/${userId}/buisness-trips`);
+};
+
+export const postGoToTrip = async(req, res) => {
+    const userId = req.body.userId;
+    const buisnessTripId = req.body.buisnessTripId;
+    await BuisnessTrip.update({
+        status: 'Сотрудник отправился'
+    }, {
+        where: {
+            id: buisnessTripId
+        }
+    });
+    res.redirect(`/worker/${userId}/buisness-trips`);
+};
+
+export const postInTrip = async(req, res) => {
+    const userId = req.body.userId;
+    const buisnessTripId = req.body.buisnessTripId;
+    await BuisnessTrip.update({
+        status: 'Сотрудник прибыл'
+    }, {
+        where: {
+            id: buisnessTripId
+        }
+    });
+    res.redirect(`/worker/${userId}/buisness-trips`);
+};
+
+export const postGoBack = async(req, res) => {
+    const userId = req.body.userId;
+    const buisnessTripId = req.body.buisnessTripId;
+    await BuisnessTrip.update({
+        status: 'Сотрудник возвращается'
+    }, {
+        where: {
+            id: buisnessTripId
+        }
+    });
+    res.redirect(`/worker/${userId}/buisness-trips`);
+};
+
+export const postCameBack = async(req, res) => {
+    const userId = req.body.userId;
+    const buisnessTripId = req.body.buisnessTripId;
+    await BuisnessTrip.update({
+        status: 'Завершено успешно'
     }, {
         where: {
             id: buisnessTripId

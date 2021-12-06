@@ -143,6 +143,7 @@ export const getAddTrip = async(req, res) => {
 export const postAddTrip = async(req, res) => {
     try {
         const userId = req.body.userId;
+        console.log(userId);
         const user = await User.findByPk(userId);
         const chief = await user.getChief();
         const department = await chief.getDepartment();

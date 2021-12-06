@@ -12,6 +12,14 @@ workerRouter.post('/buisness-trips/refuse-trip', workerController.postRefuseTrip
 
 workerRouter.get('/:userId/buisness-trips/get-certificate/:buisnessTripId', workerController.getTripCertificate);
 
+workerRouter.post('/buisness-trips/go-to-trip', workerController.postGoToTrip);
+
+workerRouter.post('/buisness-trips/in-trip', workerController.postInTrip);
+
+workerRouter.post('/buisness-trips/go-back', workerController.postGoBack);
+
+workerRouter.post('/buisness-trips/came-back', workerController.postCameBack);
+
 workerRouter.get('/:userId/change-password', workerController.getChangePassword);
 
 workerRouter.post('/change-password', workerController.postChangePassword);
