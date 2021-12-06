@@ -17,7 +17,6 @@
                         <a class="btn white orange-text lighten-1 col s4" href="/admin/<%= userId %>/workers/edit-worker/<%= worker.id %>">Редактировать</a>
                         <form class="col s2 offset-s6" action="/admin/workers/delete-worker" method="post">
                             <input type="hidden" name="userId" value="<%= userId %>">
-                            <input type="hidden" name="workerId" value="<%= worker.id %>">
                             <button class="btn-floating red waves-effect waves-light" type="submit"><i class="material-icons">delete</i></button>
                         </form>
                       </div>

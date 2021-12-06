@@ -1,12 +1,41 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs', {panel: 'chief'}) %>
-<main>
-    <a href="/chief/<%= userId %>/workers/add-worker">Добавить рабочего</a><br>
-    <% for (let worker of workers) {%>
-        <%= worker.lastName %> <br>
-        <%= worker.firstName %> <br>
-        <%= worker.patronymic ? worker.patronymic : '' %> <br>
-    <% }; %>
-    <a href="/chief/<%= userId %>">На панель</a>
-</main>
+<div class="container">
+    <main class="valign-wrapper">
+        <div class="row">
+            <% for (let worker of workers) {%>
+                <div class="card col s6 large">
+                    <div class="card-image">
+                      <img src="<%= worker.imageURL %>">
+                      <span style="font-weight: 600;" class="card-title"><%= worker.getInitials %></span>
+                    </div>
+                    <div class="card-content">
+                      <p>ФИО: <%= worker.getFullName %> <br><%= (!worker.dateOfDismissal) ? `Работает с: ${worker.dateOfHiring}` : `Уволен: ${worker.dateOfDismissal}` %> ЗП: <%= worker.salary %>руб</p>
+                    </div>
+                    <div class="card-action">
+                      <div class="row">
+                        <% if (!worker.dateOfDismissal) {%>
+                        <form class="col s2 offset-s6" action="/chief/workers/fire-worker" method="post">
+                            <input type="hidden" name="userId" value="<%= userId %>">
+                            <input type="hidden" name="workerId" value="<%= worker.id %>">
+                            <button class="btn-floating red waves-effect waves-light"><i class="material-icons">clear</i></button>
+                        </form>
+                        <% }; %>
+                        <form class="col s2" action="/chief/workers/delete-worker" method="post">
+                            <input type="hidden" name="userId" value="<%= userId %>">
+                            <input type="hidden" name="workerId" value="<%= worker.id %>">
+                            <button class="btn-floating red waves-effect waves-light" type="submit"><i class="material-icons">delete</i></button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+            <% }; %>
+        </div>
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large waves-effect red" href="/chief/<%= userId %>/workers/add-worker">
+              <i class="large material-icons">add</i>
+            </a>
+        </div>
+    </main>
+</div>
 <%- include('../includes/end.ejs') %>

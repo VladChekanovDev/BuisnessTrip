@@ -1,19 +1,36 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs', {panel: 'chief'}) %>
-<main>
-    <a href="/chief/<%= userId %>/stations/add-station">Добавить точку назначения</a>
-    <h1>Точки назначения: </h1>
-    <% for (let station of stations) {%>
-        <h2><%= station.name %></h2>
-        <h2><%= station.adress %></h2>
-        <form action="/chief/stations/delete-station" method="post">
-            <input type="hidden" name="stationId" value="<%= station.id %>">
-            <input type="hidden" name="userId" value="<%= userId %>">
-            <button type="submit">Удалить</button>
-        </form>
-        <a href="/chief/<%= userId %>/stations/edit-station/<%= station.id %>">Редактировать</a>
-        <hr>
-    <% }; %>
-    <a href="/chief/<%= userId %>">На главную</a>
-</main>
+<div class="container">
+    <main>
+        <div class="row">
+            <% for (let station of stations) {%>
+                <div class="card col s6">
+                    <div class="card-image waves-effect waves-block waves-light">
+                      <img class="activator" src="<%= station.imageURL %>">
+                    </div>
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4"><%= station.name %><i class="material-icons right">more_vert</i></span>
+                      <div class="row">
+                        <a class="btn white orange-text lighten-1 waves-effect col s5" href="/admin/<%= userId %>/stations/edit-station/<%= station.id %>">Редактировать</a>
+                        <form class="col s3 offset-s4" action="/admin/stations/delete-station" method="post">
+                            <input type="hidden" name="stationId" value="<%= station.id %>">
+                            <input type="hidden" name="userId" value="<%= userId %>">
+                            <button class="btn-floating waves-effect red" type="submit"><i class="material-icons">delete</i></button>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="card-reveal">
+                      <span class="card-title grey-text text-darken-4"><%= station.name %><i class="material-icons right">close</i></span>
+                      <p><%= station.description %></p>
+                    </div>
+                </div>
+            <% }; %>
+        </div>
+        <div class="fixed-action-btn">
+            <a class="btn-floating waves-effect btn-large red" href="/admin/<%= userId %>/stations/add-station">
+              <i class="large material-icons">add</i>
+            </a>
+        </div>
+    </main>
+</div>
 <%- include('../includes/end.ejs') %>

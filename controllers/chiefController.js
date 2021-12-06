@@ -78,6 +78,31 @@ export const postAddWorker = async(req, res, next) => {
     }
 };
 
+export const postFireWorker = async(req, res) => {
+    const workerId = req.body.workerId;
+    const userId = req.body.userId;
+    let today = new Date();
+    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    await Worker.update({
+        dateOfDismissal: date
+    }, {
+        where: {
+            id: workerId
+        }
+    });
+    res.redirect(`/chief/${userId}/workers`);
+};
+
+export const postDeleteWorker = async(req, res) => {
+    const workerId = req.body.workerId;
+    const userId = req.body.userId;
+    const worker = await Worker.findByPk(workerId);
+    const userWorker = await worker.getUser();
+    await userWorker.destroy();
+    res.redirect(`/chief/${userId}/workers`);
+}
+
+
 export const getBuinessTrips = async(req, res) => {
     const userId = req.params.userId;
     const user = await User.findByPk(userId);

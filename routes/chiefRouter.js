@@ -10,6 +10,10 @@ chiefRouter.get('/:userId/workers/add-worker', chiefController.getAddWorker);
 
 chiefRouter.post('/workers/add-worker', chiefController.postAddWorker);
 
+chiefRouter.post('/workers/delete-worker', chiefController.postDeleteWorker);
+
+chiefRouter.post('/workers/fire-worker', chiefController.postFireWorker);
+
 chiefRouter.get('/:userId/buisness-trips', chiefController.getBuinessTrips);
 
 chiefRouter.get('/:userId/buisness-trips/add-trip', chiefController.getAddTrip);

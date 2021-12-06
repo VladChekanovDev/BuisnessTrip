@@ -62,7 +62,6 @@
             </div>
             <div class="row">
                 <div class="input-field">
-                    <label for="departmentId">Отдел*:</label>
                     <select name="departmentId" id="departmentId">
                         <% for (let department of departments) {%>
                             <option value="<%= department.id %>"><%= department.name %></option>
@@ -94,7 +93,6 @@
             </div>
             <div class="row">
                 <input type="hidden" name="userId" value="<%= userId %>">
-                <input type="hidden" name="workerId" value="<%= worker.id %>">
                 <button class="btn cyan waves-effect waves-light col s4 offset-s4" type="submit">Зарегистрировать рабочего</button>
                 <a href="/admin/<%= userId %>/workers" class="btn red col offset-s1 waves-effect waves-light">Отмена</a>
             </div>
