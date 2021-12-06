@@ -1,6 +1,22 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/header.ejs', {panel: 'chief'}) %>
-<main>
-    
-</main>
+<div class="container">
+    <main class="valign-wrapper onescreen">
+        <div class="col s12">
+            <h2 class="header">Здравствуйте <%= chief.getInitials %></h2>
+            <div class="card large">
+                <div class="card-image">
+                    <img src="<%= chief.imageURL %>" alt="<%= chief.lastName %>">
+                </div>
+                <div class="card-content">
+                    <p> Глава отдела: <%= department.name %><br> Должность: <%= chief.position %> </p>
+                </div>
+                <div class="card-action">
+                    <a href="/chief/<%= userId %>/change-password" class="btn white orange-text waves-effect lighten-1">Сменить пароль</a>
+                    <a href="/chief/<%= userId %>/change-login" class="btn white orange-text waves-effect lighten-1">Сменить логин</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
 <%- include('../includes/end.ejs') %>

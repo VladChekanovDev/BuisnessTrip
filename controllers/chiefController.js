@@ -7,12 +7,67 @@ import Department from "../models/Department.js";
 import BuisnessTrip from '../models/BuisnessTrip.js';
 import Station from '../models/Station.js';
 
-export const getChief = (req, res, next) => {
+export const getChief = async(req, res, next) => {
     const userId = req.params.userId;
+    const user = await User.findByPk(userId);
+    const chief = await user.getChief();
+    const department = await chief.getDepartment();
     res.render('chief/chief', {
         pageTitle: 'Панель начальника',
-        userId: userId
+        userId: userId,
+        chief: chief,
+        department: department
     });
+};
+
+export const getChangeLogin = async(req, res) => {
+    const userId = req.params.userId;
+    const user = await User.findByPk(userId);
+    const chief = await user.getChief();
+    res.render('chief/change-login', {
+        userId: userId,
+        pageTitle: 'Изменение логина',
+        chief: chief
+    })
+};
+
+export const getChangePassword = async(req, res) => {
+    const userId = req.params.userId;
+    const user = await User.findByPk(userId);
+    const chief = await user.getChief();
+    res.render('chief/change-password', {
+        userId: userId,
+        pageTitle: 'Изменение пароля',
+        chief: chief
+    })
+};
+
+export const postChangePassword = async(req, res) => {
+    const userId = req.body.userId;
+    const chiefId = req.body.chiefId;
+    const newPassword = req.body.newPassword;
+    User.update({
+        password: md5(newPassword) 
+    }, {
+        where: {
+            id: userId
+        }
+    });
+    res.redirect(`/chief/${userId}`);
+};
+
+export const postChangeLogin = async(req, res) => {
+    const userId = req.body.userId;
+    const chiefId = req.body.chiefId;
+    const newLogin = req.body.newLogin;
+    User.update({
+        login: newLogin 
+    }, {
+        where: {
+            id: userId
+        }
+    });
+    res.redirect(`/chief/${userId}`);
 }
 
 export const getWorkers = async(req, res) => {

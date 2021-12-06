@@ -38,6 +38,14 @@ chiefRouter.get('/:userId/stations/edit-station/:stationId', chiefController.get
 
 chiefRouter.post('/stations/edit-station', chiefController.postEditStation);
 
+chiefRouter.get('/:userId/change-login', chiefController.getChangeLogin);
+
+chiefRouter.post('/change-password', chiefController.postChangePassword);
+
+chiefRouter.post('/change-login', chiefController.postChangeLogin);
+
+chiefRouter.get('/:userId/change-password', chiefController.getChangePassword);
+
 chiefRouter.get('/:userId', chiefController.getChief);
 
 export default chiefRouter;
