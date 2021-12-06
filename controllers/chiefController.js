@@ -108,12 +108,16 @@ export const getBuinessTrips = async(req, res) => {
     const user = await User.findByPk(userId);
     const chief = await user.getChief();
     const department = await chief.getDepartment();
-    console.log(user, chief, department);
     const buisnessTrips = await BuisnessTrip.findAll({
         where: {
             departmentId: department.id
         }
     });
+    for (let buisnessTrip of buisnessTrips) {
+        buisnessTrip.station = await buisnessTrip.getStation();
+        buisnessTrip.worker = await buisnessTrip.getWorker();
+    }
+
     res.render('chief/buisness-trips', {
         pageTitle: 'Все командировки',
         buisnessTrips: buisnessTrips,
@@ -242,7 +246,9 @@ export const postAddStation = async(req, res) => {
         const userId = req.body.userId
         const newStation = {
             name: req.body.name,
-            adress: req.body.adress
+            adress: req.body.adress,
+            imageURL: req.body.imageURL,
+            description: req.body.description
         };
         await Station.create(newStation);
         res.redirect(`/chief/${userId}/stations`);
@@ -281,14 +287,16 @@ export const postEditStation = async(req, res) => {
         const stationId = req.body.stationId;
         const updatedStation = {
             name: req.body.name,
-            adress: req.body.adress
+            adress: req.body.adress,
+            description: req.body.description,
+            imageURL: req.body.imageURL
         };
         Station.update(updatedStation, {
             where: {
                 id: stationId
             }
         });
-        res.redirect(`/admin/${userId}/stations`);
+        res.redirect(`/chief/${userId}/stations`);
     } catch(e) {
         console.log(e);
         res.redirect('/error/500');
