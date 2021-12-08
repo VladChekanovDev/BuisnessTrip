@@ -8,16 +8,20 @@ import BuisnessTrip from '../models/BuisnessTrip.js';
 import Station from '../models/Station.js';
 
 export const getChief = async(req, res, next) => {
-    const userId = req.params.userId;
-    const user = await User.findByPk(userId);
-    const chief = await user.getChief();
-    const department = await chief.getDepartment();
-    res.render('chief/chief', {
-        pageTitle: 'Панель начальника',
-        userId: userId,
-        chief: chief,
-        department: department
-    });
+    try {
+        const userId = req.params.userId;
+        const user = await User.findByPk(userId);
+        const chief = await user.getChief();
+        const department = await chief.getDepartment();
+        res.render('chief/chief', {
+            pageTitle: 'Панель начальника',
+            userId: userId,
+            chief: chief,
+            department: department
+        });
+    } catch(e) {
+        console.log(e);
+    }
 };
 
 export const getChangeLogin = async(req, res) => {

@@ -19,7 +19,14 @@ export const postAuthUser = async(req, res, next) => {
     const password = md5(req.body.password);
     const user = await User.authorizate(login, password);
     if (user) {
-        return res.redirect(`/${user.userType}/${user.id}`);
+        console.log(user);
+        return res.redirect(`/${user.userType}/${user.id}/get-main-page`);
     }
     res.redirect(`/main?userNotFound=true`);
+}
+
+export const getAboutProgram = (req, res) => {
+    res.render('main/about-program', {
+        pageTitle: 'О программе'
+    })
 }

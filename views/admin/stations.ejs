@@ -3,8 +3,9 @@
 <div class="container">
     <main>
         <div class="row">
+            <% let counter = 0; %>
             <% for (let station of stations) {%>
-                <div class="card col s6">
+                <div class="card col s5 <%= (counter % 2 == 1) ? 'offset-s1' : '' %> ">
                     <div class="card-image waves-effect waves-block waves-light">
                       <img class="activator" src="<%= station.imageURL %>">
                     </div>
@@ -24,7 +25,7 @@
                       <p><%= station.description %></p>
                     </div>
                 </div>
-            <% }; %>
+            <% counter++; }; %>
         </div>
         <div class="fixed-action-btn">
             <a class="btn-floating waves-effect btn-large red" href="/admin/<%= userId %>/stations/add-station">

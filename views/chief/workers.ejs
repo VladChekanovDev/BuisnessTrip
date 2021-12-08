@@ -3,8 +3,10 @@
 <div class="container">
     <main class="valign-wrapper">
         <div class="row">
+          <div class="row"></div>
+          <% let counter = 0; %>
             <% for (let worker of workers) {%>
-                <div class="card col s6 large">
+                <div class="card col s5 <%= (counter % 2 == 1) ? 'offset-s1' : '' %> large">
                     <div class="card-image">
                       <img src="<%= worker.imageURL %>">
                       <span style="font-weight: 600;" class="card-title"><%= worker.getInitials %></span>
@@ -29,7 +31,7 @@
                       </div>
                     </div>
                   </div>
-            <% }; %>
+            <% counter++; }; %>
         </div>
         <div class="fixed-action-btn">
             <a class="btn-floating btn-large waves-effect red" href="/chief/<%= userId %>/workers/add-worker">

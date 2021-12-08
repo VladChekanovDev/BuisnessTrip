@@ -54,6 +54,6 @@ adminRouter.get('/:userId/stations/edit-station/:stationId', adminController.get
 
 adminRouter.post('/stations/edit-station', adminController.postEditStation);
 
-adminRouter.get('/:userId', adminController.getAdmin);
+adminRouter.get('/:userId/get-main-page', adminController.getAdmin);
 
 export default adminRouter;

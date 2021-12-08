@@ -2,33 +2,35 @@
 <%- include('../includes/header.ejs', {panel: 'admin'}) %>
 <div class="container">
     <main class="valign-wrapper">
-        <div class="row">
-            <% for (let worker of workers) {%>
-                <div class="card col s6 large">
-                    <div class="card-image">
-                      <img src="<%= worker.imageURL %>">
-                      <span style="font-weight: 600;" class="card-title"><%= worker.getInitials %></span>
-                    </div>
-                    <div class="card-content">
-                      <p>ФИО: <%= worker.getFullName %> <br> Отделение: <%= worker.department.name %> <br><%= (!worker.dateOfDismissal) ? `Работает с: ${worker.dateOfHiring}` : `Уволен: ${worker.dateOfDismissal}` %> ЗП: <%= worker.salary %>руб</p>
-                    </div>
-                    <div class="card-action">
-                      <div class="row">
-                        <a class="btn white orange-text lighten-1 col s4" href="/admin/<%= userId %>/workers/edit-worker/<%= worker.id %>">Редактировать</a>
-                        <form class="col s2 offset-s6" action="/admin/workers/delete-worker" method="post">
-                            <input type="hidden" name="userId" value="<%= userId %>">
-                            <button class="btn-floating red waves-effect waves-light" type="submit"><i class="material-icons">delete</i></button>
-                        </form>
-                      </div>
+      <div class="row"></div>
+      <div class="row">
+          <% let counter = 0; %>
+          <% for (let worker of workers) {%>
+              <div class="card col s5 <%= (counter % 2 == 1) ? 'offset-s1' : '' %> large">
+                  <div class="card-image">
+                    <img src="<%= worker.imageURL %>">
+                    <span style="font-weight: 600;" class="card-title"><%= worker.getInitials %></span>
+                  </div>
+                  <div class="card-content">
+                    <p>ФИО: <%= worker.getFullName %> <br> Отделение: <%= worker.department.name %> <br><%= (!worker.dateOfDismissal) ? `Работает с: ${worker.dateOfHiring}` : `Уволен: ${worker.dateOfDismissal}` %> ЗП: <%= worker.salary %>руб</p>
+                  </div>
+                  <div class="card-action">
+                    <div class="row">
+                      <a class="btn white orange-text lighten-1 col s4" href="/admin/<%= userId %>/workers/edit-worker/<%= worker.id %>">Редактировать</a>
+                      <form class="col s2 offset-s6" action="/admin/workers/delete-worker" method="post">
+                          <input type="hidden" name="userId" value="<%= userId %>">
+                          <button class="btn-floating red waves-effect waves-light" type="submit"><i class="material-icons">delete</i></button>
+                      </form>
                     </div>
                   </div>
-            <% }; %>
-        </div>
-        <div class="fixed-action-btn">
-            <a class="btn-floating btn-large waves-effect red" href="/admin/<%= userId %>/workers/add-worker">
-              <i class="large material-icons">add</i>
-            </a>
-        </div>
+                </div>
+          <% counter++; }; %>
+      </div>
+      <div class="fixed-action-btn">
+          <a class="btn-floating btn-large waves-effect red" href="/admin/<%= userId %>/workers/add-worker">
+            <i class="large material-icons">add</i>
+          </a>
+      </div>
     </main>
 </div>
 <%- include('../includes/end.ejs') %>

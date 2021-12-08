@@ -4,15 +4,19 @@ import BuisnessTrip from "../models/BuisnessTrip.js";
 import md5 from "md5";
 
 export const getWorker = async(req, res, next) => {
-    const userId = req.params.userId;
-    const user = await User.findByPk(userId);
-    const worker = await user.getWorker();
-    worker.department = await worker.getDepartment();
-    res.render('worker/worker', {
-        pageTitle: 'Панель рабочего',
-        userId: userId,
-        worker: worker
-    });
+    try {
+        const userId = req.params.userId;
+        const user = await User.findByPk(userId);
+        const worker = await user.getWorker();
+        worker.department = await Department.findByPk(worker.departmentId)
+        res.render('worker/worker', {
+            pageTitle: 'Панель рабочего',
+            userId: userId,
+            worker: worker
+        });
+    } catch(e) {
+        console.log(e);
+    }
 };
 
 export const getTrips = async(req, res) => {
@@ -119,40 +123,40 @@ export const getTripCertificate = async(req, res) => {
     let endDate = new Date(buisnessTrip.dateOfBegin);
     endDate.setDate(endDate.getDate() + buisnessTrip.duration);
     switch(endDate.getMonth()) {
-        case 1: 
+        case 0: 
             endDate.month = 'января';
             break;
-        case 2: 
+        case 1: 
             endDate.month = 'февраля';
             break;
-        case 3: 
+        case 2: 
             endDate.month = 'марта';
             break;
-        case 4: 
+        case 3: 
             endDate.month = 'апреля';
             break;
-        case 5: 
+        case 4: 
             endDate.month = 'мая';
             break;
-        case 6: 
+        case 5: 
             endDate.month = 'июня';
             break;
-        case 7: 
+        case 6: 
             endDate.month = 'июля';
             break;
-        case 8: 
+        case 7: 
             endDate.month = 'августа';
             break;
-        case 9: 
+        case 8: 
             endDate.month = 'сентября';
             break;
-        case 10: 
+        case 9: 
             endDate.month = 'октября';
             break;
-        case 11: 
+        case 10: 
             endDate.month = 'ноября';
             break;
-        case 12: 
+        case 11: 
             endDate.month = 'декабря';
             break;
     };

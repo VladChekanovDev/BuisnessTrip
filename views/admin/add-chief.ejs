@@ -27,22 +27,21 @@
             </div></div>
             <div class="row"><div class="input-field">
                 <label for="password">Пароль*</label>
-                <input class="validate" type="password" name="password" id="password" required>
+                <input class="validate" type="password" name="password" id="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required>
                 <span class="helper-text" data-error="Заполните поле"></span>
             </div></div>
             <div class="row"><div class="input-field">
                 <label for="repeat-password">Повторите пароль*</label>
-                <input class="validate" type="password" name="repeatPassword" id="repeat-password" required>
-                <span class="helper-text" data-error="Заполните поле"></span>
+                <input class="validate" type="password" name="repeatPassword" id="repeat-password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required>
+                <span class="helper-text" data-error="Заполните поле. Пароль должен содержать минимум 8 символов, 1 букву и 1 цифру"></span>
             </div></div>
             <div class="row"><div class="input-field">
                 <select class="validate" name="departmentId" id="departmentId">
-                    <option value="" disabled selected>Выберите отдел</option>
                     <% for (let department of departments) {%>
                         <option value="<%= department.id %>"><%= department.name %></option>
                     <% }; %>
                 </select>
-                <label for="departmentId">Отдел*</label>
+                <span class="helper-text">Выберите отделение</span>
             </div></div>
             <div class="row"><div class="input-field">
                 <label for="position">Должность*</label>

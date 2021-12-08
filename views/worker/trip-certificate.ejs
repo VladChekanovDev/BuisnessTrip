@@ -45,7 +45,7 @@ ________________________________        ___________________________________
 (подпись, печать)                           (подпись, печать)
 (расшифровка подписи)                       (расшифровка подписи)
 Выбыл из <span class="underlined"><%= station.adress %></span><% for (let i = 1; i <= 23-station.adress.length; i++) {%>_<% }; %>        Прибыл в <span class="underlined"><%= department.adress %></span><% for (let i = 1; i <= 23-department.adress.length; i++) {%>_<% }; %>
-_<span class="underlined"><%= endDate.getDate() %></span><% for (let i = 1; i <= 3-endDate.getDate().toString().length; i++) {%>_<% }; %> __<span class="underlined"><%= endDate.month %></span><% for (let i = 1; i <= 12-2-endDate.month.length; i++) {%>_<% }; %> 20<span class="underlined"><%= endDate.getFullYear().toString().substr(2,2) %></span> г.               ____ ____________ 20__ г.
+_<span class="underlined"><%= endDate.getDate() %></span><% for (let i = 1; i <= 3-endDate.getDate().toString().length; i++) {%>_<% }; %> __<span class="underlined"><%= endDate.month %></span><% for (let i = 1; i <= 12-2-endDate.month.toString().length; i++) {%>_<% }; %> 20<span class="underlined"><%= endDate.getFullYear().toString().substr(2,2) %></span> г.               ____ ____________ 20__ г.
 ________________________________        ___________________________________
       (подпись, печать)                          (подпись, печать)
     (расшифровка подписи)                      (расшифровка подписи)

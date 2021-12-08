@@ -28,6 +28,6 @@ workerRouter.get('/:userId/change-login', workerController.getChangeLogin);
 
 workerRouter.post('/change-login', workerController.postChangeLogin);
 
-workerRouter.get('/:userId', workerController.getWorker);
+workerRouter.get('/:userId/get-main-page', workerController.getWorker);
 
 export default workerRouter;

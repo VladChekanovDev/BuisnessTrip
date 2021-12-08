@@ -2,9 +2,11 @@
 <%- include('../includes/header.ejs', {panel: 'admin'}) %>
 <div class="container">
     <main>
+        <div class="row"></div>
         <div class="row">
+            <% let counter = 0; %>
             <% for (let chief of chiefs) {%>
-                <div class="col s6">
+                <div class="col s5 <%= (counter % 2 == 1) ? 'offset-s1' : '' %> ">
                     <div class="card">
                         <div class="card-image">
                             <img src="<%= chief.imageURL %>" alt="<%= chief.getInitials %>">    
@@ -25,7 +27,8 @@
                         </div>
                     </div>
                 </div>
-                <% }; %>
+                <% counter++; %>
+                <%; }; %>
             </div>
             <div class="fixed-action-btn">
                 <a href="/admin/<%= userId %>/chiefs/add-chief" class="btn-floating btn-large red">

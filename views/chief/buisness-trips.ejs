@@ -28,8 +28,9 @@
             </form>
         </div>
         <div class="row">
+            <% let counter = 0; %>
             <% for (let buisnessTrip of buisnessTrips) {%>
-            <div class="card large col s5">
+            <div class="card large col s5 <%= (counter % 2 == 1) ? 'offset-s1' : '' %> ">
                 <div class="card-image waves-effect waves-block waves-light">
                   <img class="activator" src="<%= buisnessTrip.station.imageURL %>">
                 </div>
@@ -37,6 +38,7 @@
                   <span class="card-title activator grey-text text-darken-4"><%= buisnessTrip.station.name %><i class="material-icons right">more_vert</i></span>
                   <p class="row">
                     <div class="btn <%= (buisnessTrip.status == 'Откланено') ? 'red' : '' %> <%= (buisnessTrip.status == 'Завершено успешно') ? 'green' : '' %> <%= (buisnessTrip.status != 'Откланено' && buisnessTrip.status != 'Завершено успешно') ? 'orange' : '' %> white-text lighten-1 col s12"><%= buisnessTrip.status %></div>
+                    <div class="row"></div>
                     <% if (buisnessTrip.status != 'Откланено' && buisnessTrip.status != 'Завершено успешно') {%>
                         <a class="btn white orange-text lighten-1 col s5" href="/chief/<%= userId %>/buisness-trips/edit-trip/<%= buisnessTrip.id %>">Редактировать</a>
                         <form class="col s1 offset-s4" action="/chief/buisness-trips/delete-trip" method="post">
@@ -52,7 +54,7 @@
                   <p>Рабочий: <%= buisnessTrip.worker.getFullName %> <br> Адрес: <%= buisnessTrip.station.adress %> <br> Цель командировки: <%= buisnessTrip.goal %> <br> Продолжительность командировки: <%= buisnessTrip.duration%> дней <br> Суточные: <%= buisnessTrip.cost %> руб <br> Приказ №<%= buisnessTrip.orderNumber %> от <%= buisnessTrip.orderDate %> <br> Дата начала: <%= buisnessTrip.dateOfBegin %> </p>
                 </div>
             </div>
-            <% }; %>
+            <% counter++; }; %>
         </div>
         <div class="fixed-action-btn">
             <a class="btn-floating waves-effect btn-large red" href="/chief/<%= userId %>/buisness-trips/add-trip">

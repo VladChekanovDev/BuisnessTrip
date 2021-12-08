@@ -2,9 +2,11 @@
 <%- include('../includes/header.ejs', {panel: 'worker'}) %>
 <div class="container">
     <main>
-        <div class="row">
-            <% for (let buisnessTrip of buisnessTrips) {%>
-            <div class="card large col s5">
+        <div class="row col s12">
+            <div class="row"></div>
+            <% let counter = 0; console.log(counter); %>
+            <% for (let buisnessTrip of buisnessTrips) { console.log(counter);%>
+            <div class="card large col s5 <%= (counter % 2 == 1) ? 'offset-s1' : '' %>">
                 <div class="card-image waves-effect waves-block waves-light">
                   <img class="activator" src="<%= buisnessTrip.station.imageURL %>">
                 </div>
@@ -65,14 +67,14 @@
                                 <button class="btn green col s12">Сообщить о возвращении</button>
                             </form>
                         </div>
-                    <% }; %>
+                    <%  }; %>
                 </div>
                 <div class="card-reveal">
                   <span class="card-title grey-text text-darken-4"><%= buisnessTrip.station.name %><i class="material-icons right">close</i></span>
                   <p>Цель: <%= buisnessTrip.goal %> <br> Суточные: <%= buisnessTrip.cost %> руб <br> Адрес: <%= buisnessTrip.station.adress %></p>
                 </div>
             </div>
-            <% }; %>
+            <% counter++; }; %>
         </div>
         <div class="fixed-action-btn">
             <a class="btn-floating waves-effect btn-large red" href="/chief/<%= userId %>/buisness-trips/add-trip">

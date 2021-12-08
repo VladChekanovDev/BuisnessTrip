@@ -97,7 +97,8 @@ export const getChiefs = async(req, res, next) => {
 
 export const getAddChief = async(req, res, next) => {
     const userId = req.params.userId;
-    const departments = await Department.findAll();
+    let departments = await Department.findAll();
+    departments.forEach(d => console.log(d));
     res.render('admin/add-chief', {
         pageTitle: 'Добавление начальника отдела',
         departments: departments,
@@ -138,7 +139,8 @@ export const postDeleteChief = async(req, res) => {
     const userId = req.body.userId;
     const chiefId = req.body.chiefId;
     const chief = await Chief.findByPk(chiefId);
-    await chief.destroy();
+    const user = await chief.getUser();
+    await user.destroy();
     res.redirect(`/admin/${userId}/chiefs`);
 };
 

@@ -35,6 +35,7 @@ const User = sequelize.define('user', {
  * @returns User's instance or nothing
  */
 User.authorizate = async(login, password) => {
+    console.log(login, password);
     const users = await User.findAll({
         where: {
             login: login

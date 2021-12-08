@@ -48,6 +48,6 @@ chiefRouter.post('/change-login', chiefController.postChangeLogin);
 
 chiefRouter.get('/:userId/change-password', chiefController.getChangePassword);
 
-chiefRouter.get('/:userId', chiefController.getChief);
+chiefRouter.get('/:userId/get-main-page', chiefController.getChief);
 
 export default chiefRouter;
