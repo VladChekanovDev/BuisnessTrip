@@ -80,15 +80,15 @@
             <div class="row">
                 <div class="input-field">
                     <label for="login">Логин*</label>
-                    <input type="text" name="login" id="login" value="<%= user.login %>" class="validate" rerquired>
-                    <span class="helper-text" data-error="Заполните поле"></span>
+                    <input type="text" name="login" id="login" pattern="^[a-zA-Z0-9_-]{3,16}$" required><br>            
+                    <span class="helper-text" data-error="Заполните поле. Пароль должен содержать минимум 8 символов, 1 букву и 1 цифру"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field">
                     <label for="password">Пароль*</label>
-                    <input class="validate" type="password" name="password" id="password" required>
-                    <span class="helper-text" data-error="Заполните поле"></span>
+                    <input type="password" name="password" id="password" pattern="^[a-zA-Z0-9_-]{3,16}$" required><br>            
+                    <span class="helper-text" data-error="Заполните поле. Пароль должен содержать минимум 8 символов, 1 букву и 1 цифру"></span>
                 </div>
             </div>
             <div class="row">

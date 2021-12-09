@@ -4,7 +4,7 @@
     <main class="valign-wrapper">
         <div class="row">
           <div class="row"></div>
-          <% let counter = 0; %>
+            <% let counter = 0; %>
             <% for (let worker of workers) {%>
                 <div class="card col s5 <%= (counter % 2 == 1) ? 'offset-s1' : '' %> large">
                     <div class="card-image">
@@ -17,6 +17,7 @@
                     <div class="card-action">
                       <div class="row">
                         <% if (!worker.dateOfDismissal) {%>
+                        
                         <form class="col s2 offset-s6" action="/chief/workers/fire-worker" method="post">
                             <input type="hidden" name="userId" value="<%= userId %>">
                             <input type="hidden" name="workerId" value="<%= worker.id %>">

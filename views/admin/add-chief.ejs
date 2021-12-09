@@ -22,13 +22,13 @@
             </div></div>
             <div class="row"><div class="input-field">
                 <label for="login">Логин*</label>
-                <input class="validate" type="text" name="login" id="login" required>
-                <span class="helper-text" data-error="Заполните поле"></span>
+                <input class="validate" type="text" name="login" id="login" pattern="^[a-zA-Z0-9_-]{3,16}$" required>
+                <span class="helper-text" data-error="Логин должен быть не короче 3 и не длиннее 16 символов. Логин может содержать буквы, цифры, знак нижнего подчеркивания и тире "></span>
             </div></div>
             <div class="row"><div class="input-field">
                 <label for="password">Пароль*</label>
                 <input class="validate" type="password" name="password" id="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required>
-                <span class="helper-text" data-error="Заполните поле"></span>
+                <span class="helper-text" data-error="Заполните поле. Пароль должен содержать минимум 8 символов, 1 букву и 1 цифру"></span>
             </div></div>
             <div class="row"><div class="input-field">
                 <label for="repeat-password">Повторите пароль*</label>

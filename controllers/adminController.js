@@ -35,7 +35,8 @@ export const getAddDepartment = (req, res, next) => {
 export const postAddDepartment = async(req, res, next) => {
     const name = req.body.name;
     const adress = req.body.adress;
-    const userId = req.body.userId;
+    const userId = req.body.userId;Понял
+    
     const description = req.body.description;
     const imageURL = req.body.imageURL;
     await Department.create({

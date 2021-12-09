@@ -4,14 +4,14 @@
     <form class="col s6 offset-s3" action="/admin/chiefs/edit-chief" method="post">
         <div class="row">
             <div class="input-field">
-                <label for="firstName">Имя*:</label>
+                <label for="firstName">Имя*</label>
                 <input class="validate" type="text" name="firstName" id="firstName" value="<%= chief.firstName %>" required>
                 <span class="helper-text" data-error="Заполните поле"></span>
             </div>
         </div>
         <div class="row">
             <div class="input-field">
-                <label for="lastName">Фамилия*:</label>
+                <label for="lastName">Фамилия*</label>
                 <input class="validate" type="text" name="lastName" id="lastName" value="<%= chief.lastName %>" required><br>
                 <span class="helper-text" data-error="Заполните поле"></span>
             </div>
@@ -25,7 +25,6 @@
         </div>
         <div class="row"><div class="input-field">
             <select class="validate" name="departmentId" id="departmentId">
-                <option value="" disabled selected>Выберите отдел</option>
                 <% for (let department of departments) {%>
                     <option value="<%= department.id %>" <%= (department.id == chief.departmentId) ? 'selected' : '' %>><%= department.name %></option>
                 <% }; %>

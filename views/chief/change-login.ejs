@@ -6,9 +6,9 @@
         <form class="col s12" action="/chief/change-login" method="post">
             <div class="row">
                 <div class="input-field">
-                    <label for="new-password">Новый логин*</label>
-                    <input class="validate" type="text" name="newLogin" id="new-login" required><br>
-                    <span class="helper-text" data-error="Заполните поле"></span>
+                    <label for="new-login">Новый логин*</label>
+                    <input class="validate" type="text" name="newLogin" id="new-login" pattern="^[a-zA-Z0-9_-]{3,16}$" required>
+                    <span class="helper-text" data-error="Логин должен быть не короче 3 и не длиннее 16 символов. Логин может содержать буквы, цифры, знак нижнего подчеркивания и тире "></span>
                 </div>
             </div>
             <div class="row">
